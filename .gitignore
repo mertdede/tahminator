@@ -1,0 +1,20 @@
+# Bağımlılıklar (npm install ile yeniden üretilir, repoya konmaz)
+node_modules/
+
+# Derleme çıktısı
+dist/
+
+# API anahtarı ve gizli bilgiler — ASLA commit edilmez
+.env
+.env.local
+
+# API-Football önbelleği (Faz 2) — script ile yeniden üretilir, GİZLİ kalır
+cache/
+
+# NOT: public/veri/ BİLEREK göz ardı edilmez — bu JSON'lar (maç verileri)
+# yayına çıkarken siteye dahil olmalı ki arkadaşların veriyi görsün.
+# Bunlar herkese açık, zararsız spor verileridir (API anahtarı İÇERMEZ).
+
+# Sistem / editör dosyaları
+.DS_Store
+*.log

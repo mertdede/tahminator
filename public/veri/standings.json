@@ -1,0 +1,511 @@
+{
+  "guncellenme": "2026-06-11T10:52:32.905Z",
+  "veri": [
+    [
+      {
+        "sira": 1,
+        "takim": "Mexico",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group A"
+      },
+      {
+        "sira": 2,
+        "takim": "South Africa",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group A"
+      },
+      {
+        "sira": 3,
+        "takim": "South Korea",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group A"
+      },
+      {
+        "sira": 4,
+        "takim": "Czech Republic",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group A"
+      }
+    ],
+    [
+      {
+        "sira": 1,
+        "takim": "Canada",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group B"
+      },
+      {
+        "sira": 2,
+        "takim": "Bosnia & Herzegovina",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group B"
+      },
+      {
+        "sira": 3,
+        "takim": "Qatar",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group B"
+      },
+      {
+        "sira": 4,
+        "takim": "Switzerland",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group B"
+      }
+    ],
+    [
+      {
+        "sira": 1,
+        "takim": "Brazil",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group C"
+      },
+      {
+        "sira": 2,
+        "takim": "Morocco",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group C"
+      },
+      {
+        "sira": 3,
+        "takim": "Haiti",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group C"
+      },
+      {
+        "sira": 4,
+        "takim": "Scotland",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group C"
+      }
+    ],
+    [
+      {
+        "sira": 1,
+        "takim": "USA",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group D"
+      },
+      {
+        "sira": 2,
+        "takim": "Paraguay",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group D"
+      },
+      {
+        "sira": 3,
+        "takim": "Australia",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group D"
+      },
+      {
+        "sira": 4,
+        "takim": "Türkiye",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group D"
+      }
+    ],
+    [
+      {
+        "sira": 1,
+        "takim": "Germany",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group E"
+      },
+      {
+        "sira": 2,
+        "takim": "Curaçao",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group E"
+      },
+      {
+        "sira": 3,
+        "takim": "Ivory Coast",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group E"
+      },
+      {
+        "sira": 4,
+        "takim": "Ecuador",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group E"
+      }
+    ],
+    [
+      {
+        "sira": 1,
+        "takim": "Netherlands",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group F"
+      },
+      {
+        "sira": 2,
+        "takim": "Japan",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group F"
+      },
+      {
+        "sira": 3,
+        "takim": "Sweden",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group F"
+      },
+      {
+        "sira": 4,
+        "takim": "Tunisia",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group F"
+      }
+    ],
+    [
+      {
+        "sira": 1,
+        "takim": "Belgium",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group G"
+      },
+      {
+        "sira": 2,
+        "takim": "Egypt",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group G"
+      },
+      {
+        "sira": 3,
+        "takim": "Iran",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group G"
+      },
+      {
+        "sira": 4,
+        "takim": "New Zealand",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group G"
+      }
+    ],
+    [
+      {
+        "sira": 1,
+        "takim": "Spain",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group H"
+      },
+      {
+        "sira": 2,
+        "takim": "Cape Verde Islands",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group H"
+      },
+      {
+        "sira": 3,
+        "takim": "Saudi Arabia",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group H"
+      },
+      {
+        "sira": 4,
+        "takim": "Uruguay",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group H"
+      }
+    ],
+    [
+      {
+        "sira": 1,
+        "takim": "France",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group I"
+      },
+      {
+        "sira": 2,
+        "takim": "Senegal",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group I"
+      },
+      {
+        "sira": 3,
+        "takim": "Iraq",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group I"
+      },
+      {
+        "sira": 4,
+        "takim": "Norway",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group I"
+      }
+    ],
+    [
+      {
+        "sira": 1,
+        "takim": "Argentina",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group J"
+      },
+      {
+        "sira": 2,
+        "takim": "Algeria",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group J"
+      },
+      {
+        "sira": 3,
+        "takim": "Austria",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group J"
+      },
+      {
+        "sira": 4,
+        "takim": "Jordan",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group J"
+      }
+    ],
+    [
+      {
+        "sira": 1,
+        "takim": "Portugal",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group K"
+      },
+      {
+        "sira": 2,
+        "takim": "Congo DR",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group K"
+      },
+      {
+        "sira": 3,
+        "takim": "Uzbekistan",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group K"
+      },
+      {
+        "sira": 4,
+        "takim": "Colombia",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group K"
+      }
+    ],
+    [
+      {
+        "sira": 1,
+        "takim": "England",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group L"
+      },
+      {
+        "sira": 2,
+        "takim": "Croatia",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group L"
+      },
+      {
+        "sira": 3,
+        "takim": "Ghana",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group L"
+      },
+      {
+        "sira": 4,
+        "takim": "Panama",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Group L"
+      }
+    ],
+    [
+      {
+        "sira": 1,
+        "takim": "South Korea",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Ranking of third-placed teams"
+      },
+      {
+        "sira": 2,
+        "takim": "Qatar",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Ranking of third-placed teams"
+      },
+      {
+        "sira": 3,
+        "takim": "Haiti",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Ranking of third-placed teams"
+      },
+      {
+        "sira": 4,
+        "takim": "Australia",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Ranking of third-placed teams"
+      },
+      {
+        "sira": 5,
+        "takim": "Ivory Coast",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Ranking of third-placed teams"
+      },
+      {
+        "sira": 6,
+        "takim": "Sweden",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Ranking of third-placed teams"
+      },
+      {
+        "sira": 7,
+        "takim": "Iran",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Ranking of third-placed teams"
+      },
+      {
+        "sira": 8,
+        "takim": "Saudi Arabia",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Ranking of third-placed teams"
+      },
+      {
+        "sira": 9,
+        "takim": "Iraq",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Ranking of third-placed teams"
+      },
+      {
+        "sira": 10,
+        "takim": "Austria",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Ranking of third-placed teams"
+      },
+      {
+        "sira": 11,
+        "takim": "Uzbekistan",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Ranking of third-placed teams"
+      },
+      {
+        "sira": 12,
+        "takim": "Ghana",
+        "oynanan": 0,
+        "puan": 0,
+        "averaj": 0,
+        "grup": "Ranking of third-placed teams"
+      }
+    ]
+  ]
+}

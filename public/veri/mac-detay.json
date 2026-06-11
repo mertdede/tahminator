@@ -1,0 +1,664 @@
+{
+  "guncellenme": "2026-06-11T10:53:55.078Z",
+  "veri": {
+    "1489369": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": [
+        {
+          "tarih": "2010-06-11",
+          "ev": "South Africa",
+          "dep": "Mexico",
+          "evGol": 1,
+          "depGol": 1
+        }
+      ]
+    },
+    "1489370": {
+      "tahmin": {
+        "h": "50%",
+        "d": "50%",
+        "a": "0%",
+        "kazanan": "USA",
+        "tavsiye": "Double chance : USA or draw"
+      },
+      "h2h": [
+        {
+          "tarih": "2025-11-15",
+          "ev": "USA",
+          "dep": "Paraguay",
+          "evGol": 2,
+          "depGol": 1
+        },
+        {
+          "tarih": "2018-03-27",
+          "ev": "USA",
+          "dep": "Paraguay",
+          "evGol": 1,
+          "depGol": 0
+        },
+        {
+          "tarih": "2016-06-11",
+          "ev": "USA",
+          "dep": "Paraguay",
+          "evGol": 1,
+          "depGol": 0
+        }
+      ]
+    },
+    "1489371": {
+      "tahmin": {
+        "h": "0%",
+        "d": "50%",
+        "a": "50%",
+        "kazanan": "Morocco",
+        "tavsiye": "Double chance : draw or Morocco"
+      },
+      "h2h": [
+        {
+          "tarih": "2023-03-25",
+          "ev": "Morocco",
+          "dep": "Brazil",
+          "evGol": 2,
+          "depGol": 1
+        }
+      ]
+    },
+    "1489372": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1489373": {
+      "tahmin": {
+        "h": "50%",
+        "d": "50%",
+        "a": "0%",
+        "kazanan": "Qatar",
+        "tavsiye": "Double chance : Qatar or draw"
+      },
+      "h2h": [
+        {
+          "tarih": "2018-11-14",
+          "ev": "Switzerland",
+          "dep": "Qatar",
+          "evGol": 0,
+          "depGol": 1
+        }
+      ]
+    },
+    "1489374": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1489375": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1489376": {
+      "tahmin": {
+        "h": "50%",
+        "d": "50%",
+        "a": "0%",
+        "kazanan": "Netherlands",
+        "tavsiye": "Double chance : Netherlands or draw"
+      },
+      "h2h": [
+        {
+          "tarih": "2010-06-19",
+          "ev": "Netherlands",
+          "dep": "Japan",
+          "evGol": 1,
+          "depGol": 0
+        }
+      ]
+    },
+    "1489377": {
+      "tahmin": {
+        "h": "45%",
+        "d": "45%",
+        "a": "10%",
+        "kazanan": "Belgium",
+        "tavsiye": "Double chance : Belgium or draw"
+      },
+      "h2h": [
+        {
+          "tarih": "2022-11-18",
+          "ev": "Belgium",
+          "dep": "Egypt",
+          "evGol": 1,
+          "depGol": 2
+        },
+        {
+          "tarih": "2018-06-06",
+          "ev": "Belgium",
+          "dep": "Egypt",
+          "evGol": 3,
+          "depGol": 0
+        }
+      ]
+    },
+    "1489378": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1489379": {
+      "tahmin": {
+        "h": "0%",
+        "d": "50%",
+        "a": "50%",
+        "kazanan": "Uruguay",
+        "tavsiye": "Double chance : draw or Uruguay"
+      },
+      "h2h": [
+        {
+          "tarih": "2018-06-20",
+          "ev": "Uruguay",
+          "dep": "Saudi Arabia",
+          "evGol": 1,
+          "depGol": 0
+        }
+      ]
+    },
+    "1489380": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1489381": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1489382": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1489383": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1489384": {
+      "tahmin": {
+        "h": "45%",
+        "d": "45%",
+        "a": "10%",
+        "kazanan": "England",
+        "tavsiye": "Double chance : England or draw"
+      },
+      "h2h": [
+        {
+          "tarih": "2021-06-13",
+          "ev": "England",
+          "dep": "Croatia",
+          "evGol": 1,
+          "depGol": 0
+        },
+        {
+          "tarih": "2018-11-18",
+          "ev": "England",
+          "dep": "Croatia",
+          "evGol": 2,
+          "depGol": 1
+        },
+        {
+          "tarih": "2018-10-12",
+          "ev": "Croatia",
+          "dep": "England",
+          "evGol": 0,
+          "depGol": 0
+        },
+        {
+          "tarih": "2018-07-11",
+          "ev": "Croatia",
+          "dep": "England",
+          "evGol": 2,
+          "depGol": 1
+        }
+      ]
+    },
+    "1489385": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1489386": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1489387": {
+      "tahmin": {
+        "h": "50%",
+        "d": "50%",
+        "a": "0%",
+        "kazanan": "Canada",
+        "tavsiye": "Double chance : Canada or draw"
+      },
+      "h2h": [
+        {
+          "tarih": "2022-09-23",
+          "ev": "Qatar",
+          "dep": "Canada",
+          "evGol": 0,
+          "depGol": 2
+        }
+      ]
+    },
+    "1489388": {
+      "tahmin": {
+        "h": "45%",
+        "d": "45%",
+        "a": "10%",
+        "kazanan": "Mexico",
+        "tavsiye": "Double chance : Mexico or draw"
+      },
+      "h2h": [
+        {
+          "tarih": "2025-09-10",
+          "ev": "Mexico",
+          "dep": "South Korea",
+          "evGol": 2,
+          "depGol": 2
+        },
+        {
+          "tarih": "2020-11-14",
+          "ev": "Mexico",
+          "dep": "South Korea",
+          "evGol": 3,
+          "depGol": 2
+        },
+        {
+          "tarih": "2018-06-23",
+          "ev": "South Korea",
+          "dep": "Mexico",
+          "evGol": 1,
+          "depGol": 2
+        }
+      ]
+    },
+    "1489389": {
+      "tahmin": {
+        "h": "50%",
+        "d": "50%",
+        "a": "0%",
+        "kazanan": "Brazil",
+        "tavsiye": "Double chance : Brazil or draw"
+      },
+      "h2h": [
+        {
+          "tarih": "2016-06-08",
+          "ev": "Brazil",
+          "dep": "Haiti",
+          "evGol": 7,
+          "depGol": 1
+        }
+      ]
+    },
+    "1489390": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1489391": {
+      "tahmin": {
+        "h": "50%",
+        "d": "50%",
+        "a": "0%",
+        "kazanan": "USA",
+        "tavsiye": "Double chance : USA or draw"
+      },
+      "h2h": [
+        {
+          "tarih": "2025-10-15",
+          "ev": "USA",
+          "dep": "Australia",
+          "evGol": 2,
+          "depGol": 1
+        }
+      ]
+    },
+    "1489392": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489393": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1489394": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489395": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489396": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489397": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489398": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489399": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489400": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489401": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489402": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489403": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489404": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489405": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489406": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489407": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489408": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489409": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489410": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489411": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489412": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489413": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489414": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489415": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489416": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489417": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489418": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489419": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489420": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489421": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1489422": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1538999": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1539000": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1539001": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1539002": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1539003": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1539004": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1539005": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1539006": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1539007": {
+      "tahmin": {
+        "h": "50%",
+        "d": "50%",
+        "a": "0%",
+        "kazanan": "Netherlands",
+        "tavsiye": "Double chance : Netherlands or draw"
+      },
+      "h2h": [
+        {
+          "tarih": "2017-10-10",
+          "ev": "Netherlands",
+          "dep": "Sweden",
+          "evGol": 2,
+          "depGol": 0
+        },
+        {
+          "tarih": "2016-09-06",
+          "ev": "Sweden",
+          "dep": "Netherlands",
+          "evGol": 1,
+          "depGol": 1
+        }
+      ]
+    },
+    "1539008": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1539009": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1539010": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1539011": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1539012": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1539013": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1539016": {
+      "tahmin": {
+        "h": "33%",
+        "d": "33%",
+        "a": "33%",
+        "kazanan": null,
+        "tavsiye": "No predictions available"
+      },
+      "h2h": []
+    },
+    "1539017": {
+      "tahmin": null,
+      "h2h": null
+    },
+    "1539074": {
+      "tahmin": null,
+      "h2h": null
+    }
+  }
+}
