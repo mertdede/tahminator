@@ -1,18 +1,6 @@
 {
-  "guncellenme": "2026-06-12T19:58:53.983Z",
+  "guncellenme": "2026-06-13T18:53:59.670Z",
   "veri": [
-    {
-      "id": 1539000,
-      "tarih": "2026-06-12T19:00:00+00:00",
-      "durum": "HT",
-      "tur": "Group Stage - 1",
-      "evSahibi": "Canada",
-      "deplasman": "Bosnia & Herzegovina",
-      "evGol": 0,
-      "depGol": 1,
-      "stat": "BMO Field",
-      "sehir": "Toronto"
-    },
     {
       "id": 1489369,
       "tarih": "2026-06-11T19:00:00+00:00",
@@ -38,16 +26,28 @@
       "sehir": "Guadalajara"
     },
     {
+      "id": 1539000,
+      "tarih": "2026-06-12T19:00:00+00:00",
+      "durum": "FT",
+      "tur": "Group Stage - 1",
+      "evSahibi": "Canada",
+      "deplasman": "Bosnia & Herzegovina",
+      "evGol": 1,
+      "depGol": 1,
+      "stat": "BMO Field",
+      "sehir": "Toronto"
+    },
+    {
       "id": 1489370,
       "tarih": "2026-06-13T01:00:00+00:00",
-      "durum": "NS",
+      "durum": "FT",
       "tur": "Group Stage - 1",
       "evSahibi": "USA",
       "deplasman": "Paraguay",
-      "evGol": null,
-      "depGol": null,
+      "evGol": 4,
+      "depGol": 1,
       "stat": "SoFi Stadium",
-      "sehir": "Los Angeles"
+      "sehir": "Inglewood"
     },
     {
       "id": 1489373,

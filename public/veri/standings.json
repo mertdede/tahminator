@@ -1,5 +1,5 @@
 {
-  "guncellenme": "2026-06-12T19:58:54.544Z",
+  "guncellenme": "2026-06-13T18:54:00.204Z",
   "veri": [
     [
       {
@@ -20,7 +20,7 @@
       },
       {
         "sira": 3,
-        "takim": "Czech Republic",
+        "takim": "Czechia",
         "oynanan": 1,
         "puan": 0,
         "averaj": -1,
@@ -39,16 +39,16 @@
       {
         "sira": 1,
         "takim": "Canada",
-        "oynanan": 0,
-        "puan": 0,
+        "oynanan": 1,
+        "puan": 1,
         "averaj": 0,
         "grup": "Group B"
       },
       {
         "sira": 2,
         "takim": "Bosnia & Herzegovina",
-        "oynanan": 0,
-        "puan": 0,
+        "oynanan": 1,
+        "puan": 1,
         "averaj": 0,
         "grup": "Group B"
       },
@@ -107,21 +107,13 @@
       {
         "sira": 1,
         "takim": "USA",
-        "oynanan": 0,
-        "puan": 0,
-        "averaj": 0,
+        "oynanan": 1,
+        "puan": 3,
+        "averaj": 3,
         "grup": "Group D"
       },
       {
         "sira": 2,
-        "takim": "Paraguay",
-        "oynanan": 0,
-        "puan": 0,
-        "averaj": 0,
-        "grup": "Group D"
-      },
-      {
-        "sira": 3,
         "takim": "Australia",
         "oynanan": 0,
         "puan": 0,
@@ -129,11 +121,19 @@
         "grup": "Group D"
       },
       {
-        "sira": 4,
+        "sira": 3,
         "takim": "Türkiye",
         "oynanan": 0,
         "puan": 0,
         "averaj": 0,
+        "grup": "Group D"
+      },
+      {
+        "sira": 4,
+        "takim": "Paraguay",
+        "oynanan": 1,
+        "puan": 0,
+        "averaj": -3,
         "grup": "Group D"
       }
     ],
@@ -412,7 +412,7 @@
     [
       {
         "sira": 1,
-        "takim": "Iran",
+        "takim": "Türkiye",
         "oynanan": 0,
         "puan": 0,
         "averaj": 0,
@@ -420,7 +420,7 @@
       },
       {
         "sira": 2,
-        "takim": "Austria",
+        "takim": "Iran",
         "oynanan": 0,
         "puan": 0,
         "averaj": 0,
@@ -428,7 +428,7 @@
       },
       {
         "sira": 3,
-        "takim": "Australia",
+        "takim": "Austria",
         "oynanan": 0,
         "puan": 0,
         "averaj": 0,
@@ -500,7 +500,7 @@
       },
       {
         "sira": 12,
-        "takim": "Czech Republic",
+        "takim": "Czechia",
         "oynanan": 1,
         "puan": 0,
         "averaj": -1,
