@@ -1,5 +1,5 @@
 {
-  "guncellenme": "2026-06-13T18:54:00.204Z",
+  "guncellenme": "2026-06-14T18:44:03.362Z",
   "veri": [
     [
       {
@@ -38,7 +38,7 @@
     [
       {
         "sira": 1,
-        "takim": "Canada",
+        "takim": "Switzerland",
         "oynanan": 1,
         "puan": 1,
         "averaj": 0,
@@ -46,7 +46,7 @@
       },
       {
         "sira": 2,
-        "takim": "Bosnia & Herzegovina",
+        "takim": "Canada",
         "oynanan": 1,
         "puan": 1,
         "averaj": 0,
@@ -55,16 +55,16 @@
       {
         "sira": 3,
         "takim": "Qatar",
-        "oynanan": 0,
-        "puan": 0,
+        "oynanan": 1,
+        "puan": 1,
         "averaj": 0,
         "grup": "Group B"
       },
       {
         "sira": 4,
-        "takim": "Switzerland",
-        "oynanan": 0,
-        "puan": 0,
+        "takim": "Bosnia & Herzegovina",
+        "oynanan": 1,
+        "puan": 1,
         "averaj": 0,
         "grup": "Group B"
       }
@@ -72,34 +72,34 @@
     [
       {
         "sira": 1,
-        "takim": "Brazil",
-        "oynanan": 0,
-        "puan": 0,
-        "averaj": 0,
+        "takim": "Scotland",
+        "oynanan": 1,
+        "puan": 3,
+        "averaj": 1,
         "grup": "Group C"
       },
       {
         "sira": 2,
         "takim": "Morocco",
-        "oynanan": 0,
-        "puan": 0,
+        "oynanan": 1,
+        "puan": 1,
         "averaj": 0,
         "grup": "Group C"
       },
       {
         "sira": 3,
-        "takim": "Haiti",
-        "oynanan": 0,
-        "puan": 0,
+        "takim": "Brazil",
+        "oynanan": 1,
+        "puan": 1,
         "averaj": 0,
         "grup": "Group C"
       },
       {
         "sira": 4,
-        "takim": "Scotland",
-        "oynanan": 0,
+        "takim": "Haiti",
+        "oynanan": 1,
         "puan": 0,
-        "averaj": 0,
+        "averaj": -1,
         "grup": "Group C"
       }
     ],
@@ -115,17 +115,17 @@
       {
         "sira": 2,
         "takim": "Australia",
-        "oynanan": 0,
-        "puan": 0,
-        "averaj": 0,
+        "oynanan": 1,
+        "puan": 3,
+        "averaj": 2,
         "grup": "Group D"
       },
       {
         "sira": 3,
         "takim": "Türkiye",
-        "oynanan": 0,
+        "oynanan": 1,
         "puan": 0,
-        "averaj": 0,
+        "averaj": -2,
         "grup": "Group D"
       },
       {
@@ -412,14 +412,22 @@
     [
       {
         "sira": 1,
-        "takim": "Türkiye",
-        "oynanan": 0,
-        "puan": 0,
+        "takim": "Brazil",
+        "oynanan": 1,
+        "puan": 1,
         "averaj": 0,
         "grup": "Group Stage"
       },
       {
         "sira": 2,
+        "takim": "Qatar",
+        "oynanan": 1,
+        "puan": 1,
+        "averaj": 0,
+        "grup": "Group Stage"
+      },
+      {
+        "sira": 3,
         "takim": "Iran",
         "oynanan": 0,
         "puan": 0,
@@ -427,7 +435,7 @@
         "grup": "Group Stage"
       },
       {
-        "sira": 3,
+        "sira": 4,
         "takim": "Austria",
         "oynanan": 0,
         "puan": 0,
@@ -435,7 +443,7 @@
         "grup": "Group Stage"
       },
       {
-        "sira": 4,
+        "sira": 5,
         "takim": "Ivory Coast",
         "oynanan": 0,
         "puan": 0,
@@ -443,7 +451,7 @@
         "grup": "Group Stage"
       },
       {
-        "sira": 5,
+        "sira": 6,
         "takim": "Sweden",
         "oynanan": 0,
         "puan": 0,
@@ -451,16 +459,8 @@
         "grup": "Group Stage"
       },
       {
-        "sira": 6,
-        "takim": "Uzbekistan",
-        "oynanan": 0,
-        "puan": 0,
-        "averaj": 0,
-        "grup": "Group Stage"
-      },
-      {
         "sira": 7,
-        "takim": "Qatar",
+        "takim": "Uzbekistan",
         "oynanan": 0,
         "puan": 0,
         "averaj": 0,
@@ -492,18 +492,18 @@
       },
       {
         "sira": 11,
-        "takim": "Haiti",
-        "oynanan": 0,
-        "puan": 0,
-        "averaj": 0,
-        "grup": "Group Stage"
-      },
-      {
-        "sira": 12,
         "takim": "Czechia",
         "oynanan": 1,
         "puan": 0,
         "averaj": -1,
+        "grup": "Group Stage"
+      },
+      {
+        "sira": 12,
+        "takim": "Türkiye",
+        "oynanan": 1,
+        "puan": 0,
+        "averaj": -2,
         "grup": "Group Stage"
       }
     ]

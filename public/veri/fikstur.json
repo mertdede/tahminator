@@ -1,6 +1,18 @@
 {
-  "guncellenme": "2026-06-13T18:53:59.670Z",
+  "guncellenme": "2026-06-14T18:44:02.947Z",
   "veri": [
+    {
+      "id": 1489374,
+      "tarih": "2026-06-14T17:00:00+00:00",
+      "durum": "2H",
+      "tur": "Group Stage - 1",
+      "evSahibi": "Germany",
+      "deplasman": "Curaçao",
+      "evGol": 6,
+      "depGol": 1,
+      "stat": "NRG Stadium",
+      "sehir": "Houston"
+    },
     {
       "id": 1489369,
       "tarih": "2026-06-11T19:00:00+00:00",
@@ -52,62 +64,50 @@
     {
       "id": 1489373,
       "tarih": "2026-06-13T19:00:00+00:00",
-      "durum": "NS",
+      "durum": "FT",
       "tur": "Group Stage - 1",
       "evSahibi": "Qatar",
       "deplasman": "Switzerland",
-      "evGol": null,
-      "depGol": null,
+      "evGol": 1,
+      "depGol": 1,
       "stat": "Levi's Stadium",
-      "sehir": "San Francisco Bay Area"
+      "sehir": "Santa Clara"
     },
     {
       "id": 1489371,
       "tarih": "2026-06-13T22:00:00+00:00",
-      "durum": "NS",
+      "durum": "FT",
       "tur": "Group Stage - 1",
       "evSahibi": "Brazil",
       "deplasman": "Morocco",
-      "evGol": null,
-      "depGol": null,
+      "evGol": 1,
+      "depGol": 1,
       "stat": "MetLife Stadium",
-      "sehir": "New York New Jersey"
+      "sehir": "East Rutherford"
     },
     {
       "id": 1489372,
       "tarih": "2026-06-14T01:00:00+00:00",
-      "durum": "NS",
+      "durum": "FT",
       "tur": "Group Stage - 1",
       "evSahibi": "Haiti",
       "deplasman": "Scotland",
-      "evGol": null,
-      "depGol": null,
+      "evGol": 0,
+      "depGol": 1,
       "stat": "Gillette Stadium",
       "sehir": "Boston"
     },
     {
       "id": 1539001,
       "tarih": "2026-06-14T04:00:00+00:00",
-      "durum": "NS",
+      "durum": "FT",
       "tur": "Group Stage - 1",
       "evSahibi": "Australia",
       "deplasman": "Türkiye",
-      "evGol": null,
-      "depGol": null,
+      "evGol": 2,
+      "depGol": 0,
       "stat": "BC Place",
       "sehir": "Vancouver"
-    },
-    {
-      "id": 1489374,
-      "tarih": "2026-06-14T17:00:00+00:00",
-      "durum": "NS",
-      "tur": "Group Stage - 1",
-      "evSahibi": "Germany",
-      "deplasman": "Curaçao",
-      "evGol": null,
-      "depGol": null,
-      "stat": "NRG Stadium",
-      "sehir": "Houston"
     },
     {
       "id": 1489376,
