@@ -1,5 +1,5 @@
 {
-  "guncellenme": "2026-06-14T18:44:50.577Z",
+  "guncellenme": "2026-06-15T13:12:50.291Z",
   "veri": {
     "Belgium": {
       "korner": 8,
@@ -23,14 +23,14 @@
       "formation": "4-2-3-1"
     },
     "Sweden": {
-      "korner": 2.6,
+      "korner": 2.2,
       "kornerSayi": 5,
-      "kart": 1.2,
+      "kart": 0.8,
       "kartSayi": 5,
-      "formation": "3-4-1-2"
+      "formation": "3-1-4-2"
     },
     "Brazil": {
-      "korner": 4.6,
+      "korner": 4.8,
       "kornerSayi": 5,
       "kart": 1.6,
       "kartSayi": 5,
@@ -74,7 +74,7 @@
     "Japan": {
       "korner": 3.8,
       "kornerSayi": 5,
-      "kart": 1.4,
+      "kart": 1.2,
       "kartSayi": 5,
       "formation": "3-4-2-1"
     },
@@ -128,7 +128,7 @@
       "formation": "4-4-2"
     },
     "Germany": {
-      "korner": 7.6,
+      "korner": 7.8,
       "kornerSayi": 5,
       "kart": 1.6666666666666667,
       "kartSayi": 3,
@@ -153,10 +153,10 @@
       "kornerSayi": 4,
       "kart": 2.5,
       "kartSayi": 4,
-      "formation": "4-4-1-1"
+      "formation": "5-3-2"
     },
     "Morocco": {
-      "korner": 3.6,
+      "korner": 4,
       "kornerSayi": 5,
       "kart": 1.4,
       "kartSayi": 5,
@@ -214,14 +214,14 @@
     "Netherlands": {
       "korner": 4.8,
       "kornerSayi": 5,
-      "kart": 0.4,
+      "kart": 0.8,
       "kartSayi": 5,
       "formation": "4-3-3"
     },
     "Ivory Coast": {
-      "korner": 4.8,
+      "korner": 4.4,
       "kornerSayi": 5,
-      "kart": 1,
+      "kart": 1.3333333333333333,
       "kartSayi": 3,
       "formation": "4-4-2"
     },
@@ -252,6 +252,76 @@
       "kart": 4,
       "kartSayi": 3,
       "formation": "4-3-3"
+    },
+    "Cape Verde Islands": {
+      "korner": null,
+      "kornerSayi": 0,
+      "kart": null,
+      "kartSayi": 0,
+      "formation": "4-2-3-1"
+    },
+    "Jordan": {
+      "korner": 2.5,
+      "kornerSayi": 2,
+      "kart": null,
+      "kartSayi": 0,
+      "formation": "5-4-1"
+    },
+    "Iraq": {
+      "korner": 3,
+      "kornerSayi": 1,
+      "kart": 2,
+      "kartSayi": 1,
+      "formation": "4-3-3"
+    },
+    "Uzbekistan": {
+      "korner": 3,
+      "kornerSayi": 2,
+      "kart": 1.5,
+      "kartSayi": 2,
+      "formation": "3-4-2-1"
+    },
+    "Qatar": {
+      "korner": 3,
+      "kornerSayi": 3,
+      "kart": 1.5,
+      "kartSayi": 2,
+      "formation": "4-3-3"
+    },
+    "Paraguay": {
+      "korner": 3.75,
+      "kornerSayi": 4,
+      "kart": 3.5,
+      "kartSayi": 4,
+      "formation": "4-4-2"
+    },
+    "Ecuador": {
+      "korner": 4.8,
+      "kornerSayi": 5,
+      "kart": 1.4,
+      "kartSayi": 5,
+      "formation": "4-4-2"
+    },
+    "USA": {
+      "korner": 4.6,
+      "kornerSayi": 5,
+      "kart": 1,
+      "kartSayi": 5,
+      "formation": "4-2-3-1"
+    },
+    "Haiti": {
+      "korner": 3.75,
+      "kornerSayi": 4,
+      "kart": 1.5,
+      "kartSayi": 4,
+      "formation": "4-4-2"
+    },
+    "New Zealand": {
+      "korner": 4.5,
+      "kornerSayi": 2,
+      "kart": 1,
+      "kartSayi": 1,
+      "formation": null
     }
   }
 }

@@ -1,18 +1,6 @@
 {
-  "guncellenme": "2026-06-14T18:44:02.947Z",
+  "guncellenme": "2026-06-15T13:11:47.559Z",
   "veri": [
-    {
-      "id": 1489374,
-      "tarih": "2026-06-14T17:00:00+00:00",
-      "durum": "2H",
-      "tur": "Group Stage - 1",
-      "evSahibi": "Germany",
-      "deplasman": "Curaçao",
-      "evGol": 6,
-      "depGol": 1,
-      "stat": "NRG Stadium",
-      "sehir": "Houston"
-    },
     {
       "id": 1489369,
       "tarih": "2026-06-11T19:00:00+00:00",
@@ -110,38 +98,50 @@
       "sehir": "Vancouver"
     },
     {
+      "id": 1489374,
+      "tarih": "2026-06-14T17:00:00+00:00",
+      "durum": "FT",
+      "tur": "Group Stage - 1",
+      "evSahibi": "Germany",
+      "deplasman": "Curaçao",
+      "evGol": 7,
+      "depGol": 1,
+      "stat": "NRG Stadium",
+      "sehir": "Houston"
+    },
+    {
       "id": 1489376,
       "tarih": "2026-06-14T20:00:00+00:00",
-      "durum": "NS",
+      "durum": "FT",
       "tur": "Group Stage - 1",
       "evSahibi": "Netherlands",
       "deplasman": "Japan",
-      "evGol": null,
-      "depGol": null,
+      "evGol": 2,
+      "depGol": 2,
       "stat": "AT&T Stadium",
-      "sehir": "Dallas"
+      "sehir": "Arlington"
     },
     {
       "id": 1489375,
       "tarih": "2026-06-14T23:00:00+00:00",
-      "durum": "NS",
+      "durum": "FT",
       "tur": "Group Stage - 1",
       "evSahibi": "Ivory Coast",
       "deplasman": "Ecuador",
-      "evGol": null,
-      "depGol": null,
+      "evGol": 1,
+      "depGol": 0,
       "stat": "Lincoln Financial Field",
       "sehir": "Philadelphia"
     },
     {
       "id": 1539002,
       "tarih": "2026-06-15T02:00:00+00:00",
-      "durum": "NS",
+      "durum": "FT",
       "tur": "Group Stage - 1",
       "evSahibi": "Sweden",
       "deplasman": "Tunisia",
-      "evGol": null,
-      "depGol": null,
+      "evGol": 5,
+      "depGol": 1,
       "stat": "Estadio BBVA",
       "sehir": "Monterrey"
     },
