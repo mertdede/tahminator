@@ -1,5 +1,5 @@
 {
-  "guncellenme": "2026-06-15T13:11:47.559Z",
+  "guncellenme": "2026-06-16T10:35:20.030Z",
   "veri": [
     {
       "id": 1489369,
@@ -148,50 +148,50 @@
     {
       "id": 1489380,
       "tarih": "2026-06-15T16:00:00+00:00",
-      "durum": "NS",
+      "durum": "FT",
       "tur": "Group Stage - 1",
       "evSahibi": "Spain",
       "deplasman": "Cape Verde Islands",
-      "evGol": null,
-      "depGol": null,
+      "evGol": 0,
+      "depGol": 0,
       "stat": "Mercedes-Benz Stadium",
       "sehir": "Atlanta"
     },
     {
       "id": 1489377,
       "tarih": "2026-06-15T19:00:00+00:00",
-      "durum": "NS",
+      "durum": "FT",
       "tur": "Group Stage - 1",
       "evSahibi": "Belgium",
       "deplasman": "Egypt",
-      "evGol": null,
-      "depGol": null,
+      "evGol": 1,
+      "depGol": 1,
       "stat": "Lumen Field",
       "sehir": "Seattle"
     },
     {
       "id": 1489379,
       "tarih": "2026-06-15T22:00:00+00:00",
-      "durum": "NS",
+      "durum": "FT",
       "tur": "Group Stage - 1",
       "evSahibi": "Saudi Arabia",
       "deplasman": "Uruguay",
-      "evGol": null,
-      "depGol": null,
+      "evGol": 1,
+      "depGol": 1,
       "stat": "Hard Rock Stadium",
-      "sehir": "Miami"
+      "sehir": "Miami Gardens"
     },
     {
       "id": 1489378,
       "tarih": "2026-06-16T01:00:00+00:00",
-      "durum": "NS",
+      "durum": "FT",
       "tur": "Group Stage - 1",
       "evSahibi": "Iran",
       "deplasman": "New Zealand",
-      "evGol": null,
-      "depGol": null,
+      "evGol": 2,
+      "depGol": 2,
       "stat": "SoFi Stadium",
-      "sehir": "Los Angeles"
+      "sehir": "Inglewood"
     },
     {
       "id": 1489383,

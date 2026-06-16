@@ -1,10 +1,10 @@
 {
-  "guncellenme": "2026-06-15T13:12:50.291Z",
+  "guncellenme": "2026-06-16T10:36:21.518Z",
   "veri": {
     "Belgium": {
-      "korner": 8,
+      "korner": 5.4,
       "kornerSayi": 5,
-      "kart": 1,
+      "kart": 1.4,
       "kartSayi": 5,
       "formation": "4-2-3-1"
     },
@@ -37,11 +37,11 @@
       "formation": "4-2-3-1"
     },
     "Uruguay": {
-      "korner": 4,
+      "korner": 6.2,
       "kornerSayi": 5,
-      "kart": 2.8,
+      "kart": 2.6,
       "kartSayi": 5,
-      "formation": "4-4-1-1"
+      "formation": "4-2-3-1"
     },
     "Colombia": {
       "korner": 3.4,
@@ -51,7 +51,7 @@
       "formation": "4-2-3-1"
     },
     "Spain": {
-      "korner": 6.75,
+      "korner": 8,
       "kornerSayi": 4,
       "kart": 1,
       "kartSayi": 3,
@@ -114,17 +114,17 @@
       "formation": "5-4-1"
     },
     "Iran": {
-      "korner": null,
-      "kornerSayi": 0,
-      "kart": null,
-      "kartSayi": 0,
-      "formation": "4-2-3-1"
+      "korner": 4,
+      "kornerSayi": 1,
+      "kart": 1,
+      "kartSayi": 1,
+      "formation": "4-4-2"
     },
     "Saudi Arabia": {
-      "korner": 2,
-      "kornerSayi": 3,
-      "kart": 1.6666666666666667,
-      "kartSayi": 3,
+      "korner": 2.5,
+      "kornerSayi": 4,
+      "kart": 1.5,
+      "kartSayi": 4,
       "formation": "4-4-2"
     },
     "Germany": {
@@ -163,9 +163,9 @@
       "formation": "4-2-3-1"
     },
     "Egypt": {
-      "korner": 2.2,
+      "korner": 3.2,
       "kornerSayi": 5,
-      "kart": 1.4,
+      "kart": 1.8,
       "kartSayi": 5,
       "formation": "4-2-3-1"
     },
@@ -254,10 +254,10 @@
       "formation": "4-3-3"
     },
     "Cape Verde Islands": {
-      "korner": null,
-      "kornerSayi": 0,
-      "kart": null,
-      "kartSayi": 0,
+      "korner": 1,
+      "kornerSayi": 1,
+      "kart": 1,
+      "kartSayi": 1,
       "formation": "4-2-3-1"
     },
     "Jordan": {
@@ -317,11 +317,25 @@
       "formation": "4-4-2"
     },
     "New Zealand": {
-      "korner": 4.5,
-      "kornerSayi": 2,
-      "kart": 1,
-      "kartSayi": 1,
-      "formation": null
+      "korner": 3.25,
+      "kornerSayi": 4,
+      "kart": 0.3333333333333333,
+      "kartSayi": 3,
+      "formation": "4-2-3-1"
+    },
+    "Canada": {
+      "korner": 7.4,
+      "kornerSayi": 5,
+      "kart": 1.5,
+      "kartSayi": 4,
+      "formation": "4-4-2"
+    },
+    "Curaçao": {
+      "korner": 2,
+      "kornerSayi": 3,
+      "kart": 2,
+      "kartSayi": 2,
+      "formation": "4-3-1-2"
     }
   }
 }
