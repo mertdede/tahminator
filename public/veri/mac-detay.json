@@ -1,5 +1,5 @@
 {
-  "guncellenme": "2026-06-16T10:36:40.261Z",
+  "guncellenme": "2026-06-18T04:05:42.310Z",
   "veri": {
     "1489369": {
       "tahmin": {
@@ -295,7 +295,15 @@
         "kazanan": null,
         "tavsiye": "No predictions available"
       },
-      "h2h": []
+      "h2h": [
+        {
+          "tarih": "2026-06-17",
+          "ev": "Argentina",
+          "dep": "Algeria",
+          "evGol": 3,
+          "depGol": 0
+        }
+      ]
     },
     "1489382": {
       "tahmin": {
@@ -305,7 +313,15 @@
         "kazanan": null,
         "tavsiye": "No predictions available"
       },
-      "h2h": []
+      "h2h": [
+        {
+          "tarih": "2026-06-17",
+          "ev": "Austria",
+          "dep": "Jordan",
+          "evGol": 3,
+          "depGol": 1
+        }
+      ]
     },
     "1489383": {
       "tahmin": {
@@ -315,7 +331,15 @@
         "kazanan": null,
         "tavsiye": "No predictions available"
       },
-      "h2h": []
+      "h2h": [
+        {
+          "tarih": "2026-06-16",
+          "ev": "France",
+          "dep": "Senegal",
+          "evGol": 3,
+          "depGol": 1
+        }
+      ]
     },
     "1489384": {
       "tahmin": {
@@ -326,6 +350,13 @@
         "tavsiye": "Double chance : England or draw"
       },
       "h2h": [
+        {
+          "tarih": "2026-06-17",
+          "ev": "England",
+          "dep": "Croatia",
+          "evGol": 4,
+          "depGol": 2
+        },
         {
           "tarih": "2021-06-13",
           "ev": "England",
@@ -364,7 +395,15 @@
         "kazanan": null,
         "tavsiye": "No predictions available"
       },
-      "h2h": []
+      "h2h": [
+        {
+          "tarih": "2026-06-17",
+          "ev": "Ghana",
+          "dep": "Panama",
+          "evGol": 1,
+          "depGol": 0
+        }
+      ]
     },
     "1489386": {
       "tahmin": {
@@ -374,7 +413,15 @@
         "kazanan": null,
         "tavsiye": "No predictions available"
       },
-      "h2h": []
+      "h2h": [
+        {
+          "tarih": "2026-06-18",
+          "ev": "Uzbekistan",
+          "dep": "Colombia",
+          "evGol": 1,
+          "depGol": 3
+        }
+      ]
     },
     "1489387": {
       "tahmin": {
@@ -587,11 +634,11 @@
     },
     "1489401": {
       "tahmin": {
-        "h": "33%",
-        "d": "33%",
-        "a": "33%",
-        "kazanan": null,
-        "tavsiye": "No predictions available"
+        "h": "50%",
+        "d": "50%",
+        "a": "0%",
+        "kazanan": "Norway",
+        "tavsiye": "Combo Winner : Norway and +1.5 goals"
       },
       "h2h": []
     },
@@ -909,7 +956,15 @@
         "kazanan": null,
         "tavsiye": "No predictions available"
       },
-      "h2h": []
+      "h2h": [
+        {
+          "tarih": "2026-06-17",
+          "ev": "Portugal",
+          "dep": "Congo DR",
+          "evGol": 1,
+          "depGol": 1
+        }
+      ]
     },
     "1539004": {
       "tahmin": {
@@ -1050,15 +1105,23 @@
         "kazanan": null,
         "tavsiye": "No predictions available"
       },
-      "h2h": []
+      "h2h": [
+        {
+          "tarih": "2026-06-16",
+          "ev": "Iraq",
+          "dep": "Norway",
+          "evGol": 1,
+          "depGol": 4
+        }
+      ]
     },
     "1539017": {
       "tahmin": {
-        "h": "33%",
-        "d": "33%",
-        "a": "33%",
-        "kazanan": null,
-        "tavsiye": "No predictions available"
+        "h": "50%",
+        "d": "50%",
+        "a": "0%",
+        "kazanan": "France",
+        "tavsiye": "Combo Winner : France and +1.5 goals"
       },
       "h2h": []
     },

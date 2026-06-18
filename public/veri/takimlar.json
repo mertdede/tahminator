@@ -1,5 +1,5 @@
 {
-  "guncellenme": "2026-06-16T10:36:21.518Z",
+  "guncellenme": "2026-06-18T04:05:23.711Z",
   "veri": {
     "Belgium": {
       "korner": 5.4,
@@ -9,17 +9,17 @@
       "formation": "4-2-3-1"
     },
     "France": {
-      "korner": 5.6,
+      "korner": 5.2,
       "kornerSayi": 5,
-      "kart": 1.4,
-      "kartSayi": 5,
+      "kart": 1.5,
+      "kartSayi": 4,
       "formation": "4-2-3-1"
     },
     "Croatia": {
-      "korner": 5.4,
+      "korner": 3.6,
       "kornerSayi": 5,
-      "kart": 1,
-      "kartSayi": 3,
+      "kart": 1.5,
+      "kartSayi": 2,
       "formation": "4-2-3-1"
     },
     "Sweden": {
@@ -44,30 +44,30 @@
       "formation": "4-2-3-1"
     },
     "Colombia": {
-      "korner": 3.4,
+      "korner": 3.6,
       "kornerSayi": 5,
-      "kart": 1,
+      "kart": 1.25,
       "kartSayi": 4,
-      "formation": "4-2-3-1"
+      "formation": "4-3-3"
     },
     "Spain": {
       "korner": 8,
       "kornerSayi": 4,
       "kart": 1,
       "kartSayi": 3,
-      "formation": "4-2-3-1"
+      "formation": "4-3-3"
     },
     "England": {
-      "korner": 8.4,
+      "korner": 9,
       "kornerSayi": 5,
-      "kart": 0.6,
-      "kartSayi": 5,
+      "kart": 0.75,
+      "kartSayi": 4,
       "formation": "4-2-3-1"
     },
     "Panama": {
       "korner": 1,
-      "kornerSayi": 4,
-      "kart": 2,
+      "kornerSayi": 3,
+      "kart": 1.75,
       "kartSayi": 4,
       "formation": "5-4-1"
     },
@@ -79,11 +79,11 @@
       "formation": "3-4-2-1"
     },
     "Senegal": {
-      "korner": 7,
+      "korner": 6.5,
       "kornerSayi": 4,
       "kart": 2,
-      "kartSayi": 4,
-      "formation": "3-4-3"
+      "kartSayi": 3,
+      "formation": "4-2-3-1"
     },
     "Switzerland": {
       "korner": 5,
@@ -135,16 +135,16 @@
       "formation": "4-2-3-1"
     },
     "Argentina": {
-      "korner": 3,
-      "kornerSayi": 3,
+      "korner": 2.75,
+      "kornerSayi": 4,
       "kart": 3,
       "kartSayi": 2,
       "formation": "4-4-2"
     },
     "Portugal": {
-      "korner": 5.2,
+      "korner": 4.8,
       "kornerSayi": 5,
-      "kart": 1.2,
+      "kart": 1.4,
       "kartSayi": 5,
       "formation": "4-2-3-1"
     },
@@ -177,9 +177,9 @@
       "formation": "3-4-2-1"
     },
     "Austria": {
-      "korner": 3.6,
+      "korner": 3.8,
       "kornerSayi": 5,
-      "kart": 1,
+      "kart": 1.2,
       "kartSayi": 5,
       "formation": "4-2-3-1"
     },
@@ -191,11 +191,11 @@
       "formation": "4-2-3-1"
     },
     "Norway": {
-      "korner": 5,
+      "korner": 5.6,
       "kornerSayi": 5,
-      "kart": 1,
-      "kartSayi": 4,
-      "formation": "4-3-3"
+      "kart": 0.8,
+      "kartSayi": 5,
+      "formation": "4-4-2"
     },
     "Scotland": {
       "korner": 5.4,
@@ -233,11 +233,11 @@
       "formation": "4-4-1-1"
     },
     "Congo DR": {
-      "korner": 5.25,
+      "korner": 5.5,
       "kornerSayi": 4,
       "kart": 1,
-      "kartSayi": 3,
-      "formation": "4-3-3"
+      "kartSayi": 4,
+      "formation": "5-3-2"
     },
     "South Africa": {
       "korner": 3.8,
@@ -247,10 +247,10 @@
       "formation": "5-3-2"
     },
     "Algeria": {
-      "korner": 3.5,
+      "korner": 3,
       "kornerSayi": 4,
-      "kart": 4,
-      "kartSayi": 3,
+      "kart": 4.5,
+      "kartSayi": 2,
       "formation": "4-3-3"
     },
     "Cape Verde Islands": {
@@ -258,27 +258,27 @@
       "kornerSayi": 1,
       "kart": 1,
       "kartSayi": 1,
-      "formation": "4-2-3-1"
+      "formation": "4-1-4-1"
     },
     "Jordan": {
-      "korner": 2.5,
-      "kornerSayi": 2,
-      "kart": null,
-      "kartSayi": 0,
-      "formation": "5-4-1"
+      "korner": 2.6666666666666665,
+      "kornerSayi": 3,
+      "kart": 0,
+      "kartSayi": 1,
+      "formation": "3-4-2-1"
     },
     "Iraq": {
-      "korner": 3,
-      "kornerSayi": 1,
-      "kart": 2,
-      "kartSayi": 1,
-      "formation": "4-3-3"
-    },
-    "Uzbekistan": {
-      "korner": 3,
+      "korner": 2.5,
       "kornerSayi": 2,
       "kart": 1.5,
       "kartSayi": 2,
+      "formation": "4-4-2"
+    },
+    "Uzbekistan": {
+      "korner": 3,
+      "kornerSayi": 3,
+      "kart": 1.3333333333333333,
+      "kartSayi": 3,
       "formation": "3-4-2-1"
     },
     "Qatar": {
