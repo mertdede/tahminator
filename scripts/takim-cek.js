@@ -17,18 +17,32 @@ async function takimAnaliz(teamId, anahtar) {
 
   const kornerler = [];
   const kartlar = [];
+  const xgler = [];        // expected_goals (üretilen gol pozisyonu kalitesi)
+  const gpler = [];        // goals_prevented (kaleci/savunma performansı)
   let formation = null;
+
+  // Bir istatistik değerini sayıya çevirir ("1.46" gibi metin de gelebilir).
+  const sayi = (v) => {
+    if (typeof v === "number") return v;
+    if (typeof v === "string") { const n = parseFloat(v); return Number.isNaN(n) ? null : n; }
+    return null;
+  };
 
   for (const mac of maclar) {
     const fid = mac.fixture.id;
-    // İstatistik (korner + sarı kart) — bu takımın tarafını bul.
+    // İstatistik (korner + sarı kart + xG + goals_prevented) — bu takımın tarafını bul.
     try {
       const sj = await apiIstek(`fixtures/statistics?fixture=${fid}&team=${teamId}`, anahtar);
       const ist = sj.response?.[0]?.statistics || [];
-      const korner = ist.find((s) => /corner/i.test(s.type))?.value;
-      const kart = ist.find((s) => /yellow/i.test(s.type))?.value;
-      if (typeof korner === "number") kornerler.push(korner);
-      if (typeof kart === "number") kartlar.push(kart);
+      const bul = (re) => ist.find((s) => re.test(s.type))?.value;
+      const korner = sayi(bul(/corner/i));
+      const kart = sayi(bul(/yellow/i));
+      const xg = sayi(bul(/expected[_ ]?goals|xg/i));
+      const gp = sayi(bul(/goals[_ ]?prevented/i));
+      if (korner != null) kornerler.push(korner);
+      if (kart != null) kartlar.push(kart);
+      if (xg != null) xgler.push(xg);
+      if (gp != null) gpler.push(gp);
     } catch { /* bu maçta istatistik yoksa atla */ }
 
     // Formation: en yeni maçtan (ilk bulunan) al.
@@ -39,7 +53,7 @@ async function takimAnaliz(teamId, anahtar) {
       } catch { /* diziliş yoksa atla */ }
     }
     await bekle(120); // nazik hız
-    if (kornerler.length >= 5 && kartlar.length >= 5 && formation) break;
+    if (kornerler.length >= 5 && kartlar.length >= 5 && xgler.length >= 5 && formation) break;
   }
 
   const ort = (arr) => (arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null);
@@ -48,6 +62,9 @@ async function takimAnaliz(teamId, anahtar) {
     kornerSayi: Math.min(kornerler.length, 5),
     kart: ort(kartlar.slice(0, 5)),       // son ≤5 maç sarı kart ortalaması
     kartSayi: Math.min(kartlar.length, 5),
+    xg: ort(xgler.slice(0, 5)),           // son ≤5 maç beklenen gol (xG) ortalaması
+    xgSayi: Math.min(xgler.length, 5),
+    gp: ort(gpler.slice(0, 5)),           // son ≤5 maç goals_prevented ortalaması
     formation,                             // en son dizilişi (örn. "4-2-3-1")
   };
 }
@@ -74,7 +91,8 @@ export async function takimlarCek(anahtar) {
         sonuc[ad] = analiz;
         const k = analiz.korner != null ? analiz.korner.toFixed(1) : "—";
         const y = analiz.kart != null ? analiz.kart.toFixed(1) : "—";
-        console.log(`    [${i}/${takimlar.length}] ${ad}: korner ${k}, kart ${y}, diziliş ${analiz.formation || "—"}`);
+        const x = analiz.xg != null ? analiz.xg.toFixed(2) : "—";
+        console.log(`    [${i}/${takimlar.length}] ${ad}: korner ${k}, kart ${y}, xG ${x}, diziliş ${analiz.formation || "—"}`);
       }
     } catch (e) {
       console.log(`    [${i}/${takimlar.length}] ${ad}: çekilemedi (${e.message})`);

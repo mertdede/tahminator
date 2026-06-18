@@ -53,18 +53,32 @@ const FORM_DATA = {
   "Haiti": "GGMBG", "G. Afrika": "MBMBG", "Gana": "MMMMB", "Curaçao": "GBMMM",
   "Katar": "MMBMM",
 };
-const seqOf = (name) => (FORM_DATA[name] ? FORM_DATA[name].split("") : ["-", "-", "-", "-", "-"]);
+// Form dizisi kaynağı: önce canlı (form.json), yoksa gömülü FORM_DATA yedeği.
+// canliForm parametresi App içinden geçilir; yoksa eski davranış korunur.
+const seqOf = (name, canliForm = null) => {
+  const kaynak = (canliForm && canliForm[name]) || FORM_DATA[name];
+  return kaynak ? kaynak.split("") : ["-", "-", "-", "-", "-"];
+};
 const adjOf = (seq) => seq.reduce((t, x) => t + (x === "G" ? 10 : x === "M" ? -10 : 0), 0);
 
 // ----- Model yardımcıları -----
 const fact = (n) => { let r = 1; for (let i = 2; i <= n; i++) r *= i; return r; };
 const pois = (k, l) => (Math.exp(-l) * Math.pow(l, k)) / fact(k);
 
-function computeModel(eloA, eloB, formA, formB, hostA, hostB, multA = 1, multB = 1) {
+// opts: { xgA, xgB, xgW } — xG harmanı (varsa). xgW = xG ağırlığı (0..1).
+// λ_final = (1 - xgW) · λ_elo + xgW · xG_takım   (sonra çarpanlar uygulanır)
+function computeModel(eloA, eloB, formA, formB, hostA, hostB, multA = 1, multB = 1, opts = {}) {
   const d = (eloA + formA + (hostA ? 60 : 0)) - (eloB + formB + (hostB ? 60 : 0));
   const BASE = 1.32, K = 0.0019;
-  const lA = Math.min(BASE * Math.exp(K * d) * multA, 5.5);
-  const lB = Math.min(BASE * Math.exp(-K * d) * multB, 5.5);
+  let lEloA = BASE * Math.exp(K * d);
+  let lEloB = BASE * Math.exp(-K * d);
+  // xG harmanı: ilgili takımın gerçek xG ortalaması varsa Elo-λ ile ağırlıklı karıştır.
+  const { xgA = null, xgB = null, xgW = 0 } = opts;
+  const harmanla = (lElo, xg) => (xg != null && xgW > 0 ? (1 - xgW) * lElo + xgW * xg : lElo);
+  lEloA = harmanla(lEloA, xgA);
+  lEloB = harmanla(lEloB, xgB);
+  const lA = Math.min(lEloA * multA, 5.5);
+  const lB = Math.min(lEloB * multB, 5.5);
   const N = 11;
   let pW = 0, pD = 0, pL = 0;
   const matrix = [];
@@ -141,6 +155,13 @@ export default function App() {
   const [grp, setGrp] = useState("D");
   const [simRes, setSimRes] = useState(null);
   const [heat, setHeat] = useState({ on: false, val: 7.5 });
+  // Tur (grup maçı sırası) gol çarpanı: 2. maçlarda gol beklentisi yükselir.
+  // tur = 1/2/3 (bilinmiyorsa 0). val = 2. maç yüzde artışı.
+  const [tur, setTur] = useState({ no: 0, on: true, val: 20 });
+  // xG harmanı: takımların gerçek xG ortalamasını Elo-λ ile karıştırma ağırlığı (%).
+  const [xg, setXg] = useState({ on: true, val: 35 });
+  // 3. maç "ölüm-kalım" kart/gol baskısı çarpanı (elenme/averaj yarışı).
+  const [bask, setBask] = useState({ on: false, val: 15 });
   const [odds, setOdds] = useState({ h: "", d: "", a: "" });
   const [corn, setCorn] = useState({ avgA: "", last5A: "", avgB: "", last5B: "" });
   const [cards, setCards] = useState({ avgA: "", last5A: "", avgB: "", last5B: "", ref: "1", conmebol: false });
@@ -148,7 +169,7 @@ export default function App() {
   // Canlı veri (npm run veri-guncelle ile üretilen cache). Yoksa null → gömülü yedek kullanılır.
   const [canli, setCanli] = useState({
     elo: null, eloTarih: null, maclar: null, maclarTarih: null,
-    takimlar: null, gruplar: null, detaylar: null, detayTarih: null,
+    takimlar: null, form: null, formTarih: null, gruplar: null, detaylar: null, detayTarih: null,
   });
   const [seciliGun, setSeciliGun] = useState(""); // maç günü filtresi (boş = tüm maçlar)
   const [seciliMac, setSeciliMac] = useState(null); // fikstürden yüklenen maç (stadyum/hava/H2H/otoriteler için)
@@ -169,15 +190,26 @@ export default function App() {
     const A = teamAvg(cards.avgA, cards.last5A);
     const B = teamAvg(cards.avgB, cards.last5B);
     const refMult = parseFloat(cards.ref);
-    const mult = refMult * (cards.conmebol ? 1.15 : 1);
-    const lambda = (A.val + B.val) * mult;
+    // 3. maç "ölüm-kalım" baskısı: elenme/averaj yarışı kart eğilimini artırır.
+    const baskMult = bask.on && tur.no === 3 ? 1 + bask.val / 100 : 1;
+    // Kart hafızası: son maçında ortalamasının belirgin üstünde kart gören takım,
+    // sonraki maçta daha temkinli oynar → küçük azaltıcı (takım başına).
+    const hafiza = (t) => {
+      const son = parse5(t.last5Str)[parse5(t.last5Str).length - 1]; // en yeni maç (girilen son değer)
+      if (son != null && t.ort != null && son > t.ort + 1) return 0.92; // belirgin üstüyse %8 azalt
+      return 1;
+    };
+    const hA = hafiza({ last5Str: cards.last5A, ort: A.val });
+    const hB = hafiza({ last5Str: cards.last5B, ort: B.val });
+    const mult = refMult * (cards.conmebol ? 1.15 : 1) * baskMult;
+    const lambda = (A.val * hA + B.val * hB) * mult;
     const cdf = (k) => { let s = 0; for (let i = 0; i <= k; i++) s += pois(i, lambda); return s; };
     const lines = [2.5, 3.5, 4.5, 5.5, 6.5].map((L) => {
       const over = 1 - cdf(Math.floor(L));
       return { L, over, under: 1 - over };
     });
-    return { lambda, A, B, mult, lines };
-  }, [cards]);
+    return { lambda, A, B, mult, lines, baskMult, hA, hB };
+  }, [cards, bask, tur]);
 
   // Korner modeli: takım ortalamaları → toplam korner Poisson dağılımı
   const cornerModel = useMemo(() => {
@@ -207,15 +239,29 @@ export default function App() {
   const eloA = eloOv["A" + idxA] ?? canliEloA ?? TEAMS[idxA][1];
   const eloB = eloOv["B" + idxB] ?? canliEloB ?? TEAMS[idxB][1];
 
-  // Takım değişince son 5 maç formunu güvenilir şekilde tazele
-  useEffect(() => { const s = seqOf(nameA); setSeqA(s); setFormA(adjOf(s)); }, [idxA]);
-  useEffect(() => { const s = seqOf(nameB); setSeqB(s); setFormB(adjOf(s)); }, [idxB]);
+  // Takım değişince ya da canlı form yüklenince son 5 maç formunu tazele.
+  // Öncelik: canlı form (form.json) > gömülü FORM_DATA yedeği.
+  useEffect(() => { const s = seqOf(nameA, canli.form); setSeqA(s); setFormA(adjOf(s)); }, [idxA, canli.form]);
+  useEffect(() => { const s = seqOf(nameB, canli.form); setSeqB(s); setFormB(adjOf(s)); }, [idxB, canli.form]);
 
-  const heatMult = (name) => (heat.on && HEAT_TEAMS.includes(name) ? 1 + heat.val / 100 : 1);
+  // Gol λ çarpanı: sıcaklık + tur (2. maç) + 3. maç baskısı bir araya gelir.
+  // Her faktör bağımsız çarpan; ikisi de açıksa çarpımları uygulanır.
+  const golMult = (name) => {
+    let mlt = 1;
+    if (heat.on && HEAT_TEAMS.includes(name)) mlt *= 1 + heat.val / 100;        // sıcaklık
+    if (tur.on && tur.no === 2) mlt *= 1 + tur.val / 100;                        // 2. maç gol artışı
+    if (bask.on && tur.no === 3) mlt *= 1 + bask.val / 200;                      // 3. maç açılan oyun (yarı etki)
+    return mlt;
+  };
+
+  // xG harmanı için takımların gerçek xG ortalaması (canlı veriden).
+  const xgA = canli.takimlar?.[nameA]?.xg ?? null;
+  const xgB = canli.takimlar?.[nameB]?.xg ?? null;
+  const xgOpts = { xgA, xgB, xgW: xg.on ? xg.val / 100 : 0 };
 
   const m = useMemo(
-    () => computeModel(eloA, eloB, formA, formB, hostA, hostB, heatMult(nameA), heatMult(nameB)),
-    [eloA, eloB, formA, formB, hostA, hostB, heat, nameA, nameB]
+    () => computeModel(eloA, eloB, formA, formB, hostA, hostB, golMult(nameA), golMult(nameB), xgOpts),
+    [eloA, eloB, formA, formB, hostA, hostB, heat, tur, bask, xg, nameA, nameB, xgA, xgB]
   );
 
   // Piyasa oranları → marjsız olasılık
@@ -271,6 +317,14 @@ export default function App() {
         avgB: tB?.kart != null ? String(tB.kart) : "",
       }));
     }
+    // Tur (grup maçı sırası) tespiti: "Group Stage - 2" → 2.
+    const turNo = (() => {
+      const m2 = (mac.tur || "").match(/(\d)/);
+      return m2 ? parseInt(m2[1], 10) : 0;
+    })();
+    setTur((t) => ({ ...t, no: turNo }));
+    // 3. maç ise "ölüm-kalım" baskısını otomatik öner (kullanıcı kapatabilir).
+    setBask((b) => ({ ...b, on: turNo === 3 }));
     setSeciliMac(mac); // stadyum/hava/H2H/otoriteler panelleri için
     window.scrollTo({ top: 0, behavior: "smooth" }); // hesaplayıcıya dön
   };
@@ -479,6 +533,71 @@ export default function App() {
             {heat.on && !HEAT_TEAMS.includes(nameA) && !HEAT_TEAMS.includes(nameB) && (
               <span> Bu maçta iki takım da listede değil; etki yok.</span>
             )}
+          </div>
+        </div>
+
+        {/* Maç bağlamı: tur (2. maç gol artışı) + xG harmanı + 3. maç baskısı */}
+        <div style={{ background: C.panel, border: `1px solid ${C.line}`, borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, letterSpacing: 2, color: C.gold, marginBottom: 10 }}>
+            MAÇ BAĞLAMI · GOL MODELİ AYARI
+            {tur.no > 0 && <span style={{ color: C.blue }}> · {tur.no}. grup maçı</span>}
+          </div>
+
+          {/* Tur (2. maç) gol artışı */}
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center", marginBottom: 10 }}>
+            <label style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 13, cursor: "pointer", fontWeight: 700 }}>
+              <input type="checkbox" checked={tur.on} onChange={(e) => setTur((t) => ({ ...t, on: e.target.checked }))} style={{ accentColor: C.gold }} />
+              ⚽ 2. maç gol artışı
+            </label>
+            <div style={{ display: "flex", gap: 10, alignItems: "center", flex: 1, minWidth: 220, opacity: tur.on ? 1 : 0.4 }}>
+              <span style={{ fontSize: 12, color: C.dim, whiteSpace: "nowrap" }}>Artış</span>
+              <input type="range" min={0} max={40} step={5} value={tur.val} disabled={!tur.on}
+                onChange={(e) => setTur((t) => ({ ...t, val: +e.target.value }))} style={{ flex: 1, accentColor: C.gold }} />
+              <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, color: C.gold, width: 48 }}>+%{tur.val}</span>
+            </div>
+            <div style={{ fontSize: 11, color: tur.no === 2 && tur.on ? C.green : C.dim, width: "100%" }}>
+              {tur.no === 2
+                ? (tur.on ? `Bu maç 2. grup maçı → her iki takımın gol beklentisi +%${tur.val} uygulanıyor.` : "Bu maç 2. grup maçı ama artış kapalı.")
+                : "Yalnızca 2. grup maçlarında devreye girer (ilk maçların temkinli, 2. maçların gollü geçtiği gözlemi)."}
+            </div>
+          </div>
+
+          {/* xG harmanı */}
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center", marginBottom: 10, borderTop: `1px dashed ${C.line}`, paddingTop: 10 }}>
+            <label style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 13, cursor: "pointer", fontWeight: 700 }}>
+              <input type="checkbox" checked={xg.on} onChange={(e) => setXg((x) => ({ ...x, on: e.target.checked }))} style={{ accentColor: C.gold }} />
+              📊 xG harmanı (gerçek gol pozisyonu kalitesi)
+            </label>
+            <div style={{ display: "flex", gap: 10, alignItems: "center", flex: 1, minWidth: 220, opacity: xg.on ? 1 : 0.4 }}>
+              <span style={{ fontSize: 12, color: C.dim, whiteSpace: "nowrap" }}>Ağırlık</span>
+              <input type="range" min={0} max={70} step={5} value={xg.val} disabled={!xg.on}
+                onChange={(e) => setXg((x) => ({ ...x, val: +e.target.value }))} style={{ flex: 1, accentColor: C.gold }} />
+              <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, color: C.gold, width: 48 }}>%{xg.val}</span>
+            </div>
+            <div style={{ fontSize: 11, color: C.dim, width: "100%" }}>
+              {(xgA != null || xgB != null)
+                ? <span style={{ color: C.green }}>Canlı xG: {nameA} {xgA != null ? xgA.toFixed(2) : "—"} · {nameB} {xgB != null ? xgB.toFixed(2) : "—"} — Elo gol beklentisiyle %{xg.val} ağırlıkla harmanlanır.</span>
+                : "Bu iki takım için henüz xG verisi yok (maç oynanınca dolar); harman etkisiz."}
+            </div>
+          </div>
+
+          {/* 3. maç baskısı */}
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center", borderTop: `1px dashed ${C.line}`, paddingTop: 10 }}>
+            <label style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 13, cursor: "pointer", fontWeight: 700 }}>
+              <input type="checkbox" checked={bask.on} onChange={(e) => setBask((b) => ({ ...b, on: e.target.checked }))} style={{ accentColor: C.gold }} />
+              🔥 3. maç ölüm-kalım baskısı
+            </label>
+            <div style={{ display: "flex", gap: 10, alignItems: "center", flex: 1, minWidth: 220, opacity: bask.on ? 1 : 0.4 }}>
+              <span style={{ fontSize: 12, color: C.dim, whiteSpace: "nowrap" }}>Şiddet</span>
+              <input type="range" min={0} max={30} step={5} value={bask.val} disabled={!bask.on}
+                onChange={(e) => setBask((b) => ({ ...b, val: +e.target.value }))} style={{ flex: 1, accentColor: C.gold }} />
+              <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, color: C.gold, width: 48 }}>+%{bask.val}</span>
+            </div>
+            <div style={{ fontSize: 11, color: tur.no === 3 && bask.on ? C.green : C.dim, width: "100%" }}>
+              {tur.no === 3
+                ? (bask.on ? `Bu maç 3. (son) grup maçı → kart beklentisi +%${bask.val}, gol beklentisi +%${(bask.val / 2).toFixed(0)} (açılan oyun). Standing tablosuna bakıp elenme/averaj riskini değerlendir.` : "Bu maç 3. grup maçı ama baskı kapalı.")
+                : "Yalnızca 3. (son) grup maçlarında devreye girer; elenme/averaj yarışındaki sinirli oyunu yansıtır."}
+            </div>
           </div>
         </div>
 

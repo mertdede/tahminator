@@ -39,7 +39,7 @@ async function veriOku(dosya) {
 
 // Tüm canlı veriyi tek seferde yükler. Hiçbiri zorunlu değil; yoksa null gelir.
 export async function canliVeriYukle() {
-  const [elo, fikstur, oranlar, takimlar, standings, macDetay, hava] =
+  const [elo, fikstur, oranlar, takimlar, standings, macDetay, hava, form] =
     await Promise.all([
       veriOku("elo.json"),
       veriOku("fikstur.json"),
@@ -48,6 +48,7 @@ export async function canliVeriYukle() {
       veriOku("standings.json"),
       veriOku("mac-detay.json"),
       veriOku("hava.json"),
+      veriOku("form.json"),
     ]);
 
   // Fikstürdeki takım adlarını Türkçeleştir; oranı, stadyumu, havayı maça bağla.
@@ -88,6 +89,15 @@ export async function canliVeriYukle() {
     );
   }
 
+  // Son 5 maç formunu Türkçe ada göre yeniden anahtarla ("GBGMG" gibi dizi).
+  let formMap = null;
+  if (form?.veri) {
+    formMap = {};
+    for (const [enAd, dizi] of Object.entries(form.veri)) {
+      formMap[trAd(enAd)] = dizi;
+    }
+  }
+
   // Maç detayları (otoriteler tahmini + H2H): id'ye göre, H2H adları Türkçeleşir.
   let detayMap = null;
   if (macDetay?.veri) {
@@ -107,7 +117,9 @@ export async function canliVeriYukle() {
     eloTarih: elo?.guncellenme || null,
     maclar,                                  // Türkçeleştirilmiş maç dizisi ya da null
     maclarTarih: fikstur?.guncellenme || null,
-    takimlar: takimMap,                      // { "Türkiye": {korner,kart,formation}, ... }
+    takimlar: takimMap,                      // { "Türkiye": {korner,kart,xg,gp,formation}, ... }
+    form: formMap,                           // { "Türkiye": "GBGMG", ... } ya da null
+    formTarih: form?.guncellenme || null,
     gruplar,                                 // [[grup A satırları], ...] Türkçe adlı
     detaylar: detayMap,                      // { macId: {tahmin, h2h} }
     detayTarih: macDetay?.guncellenme || null,
