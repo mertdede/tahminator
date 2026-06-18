@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { canliVeriYukle, ISIM_TR } from "./veri.js";
 
 // ----- Gerçek Elo puanları — eloratings.net, 9 Haziran 2026 + kullanıcı güncellemeleri -----
@@ -332,7 +332,7 @@ export default function App() {
 
   // Bir maça tıklanınca: iki takımı seç, ev sahibi avantajını ayarla, oranı bas,
   // korner/kart kutularını canlı istatistikten otomatik doldur.
-  const macYukle = (mac) => {
+  const macYukle = (mac, kaydir = true) => {
     const ia = teamIndex(mac.evSahibi), ib = teamIndex(mac.deplasman);
     if (ia === -1 || ib === -1) return;
     setIdxA(ia); setIdxB(ib);
@@ -367,8 +367,29 @@ export default function App() {
     // 3. maç ise "ölüm-kalım" baskısını otomatik öner (kullanıcı kapatabilir).
     setBask((b) => ({ ...b, on: turNo === 3 }));
     setSeciliMac(mac); // stadyum/hava/H2H/otoriteler panelleri için
-    window.scrollTo({ top: 0, behavior: "smooth" }); // hesaplayıcıya dön
+    if (kaydir) window.scrollTo({ top: 0, behavior: "smooth" }); // hesaplayıcıya dön
   };
+
+  // Açılış varsayılanı: sabit Türkiye–ABD yerine, fikstür yüklenince o anki
+  // saate göre SIRADAKI (henüz başlamamış, en yakın) maçı otomatik yükle.
+  // Hepsi oynanmışsa en son maça düşülür. Yalnızca bir kez (ilk yükleme) çalışır;
+  // kullanıcı sonradan başka maç seçtiyse ezmez. Sayfayı yukarı kaydırmaz.
+  const otoSecildi = useRef(false);
+  useEffect(() => {
+    if (otoSecildi.current || !canli.maclar) return;
+    const uygun = canli.maclar.filter(
+      (m) => teamIndex(m.evSahibi) !== -1 && teamIndex(m.deplasman) !== -1
+    );
+    if (uygun.length === 0) return;
+    const simdi = Date.now();
+    const gelecek = uygun
+      .filter((m) => new Date(m.tarih).getTime() >= simdi)
+      .sort((a, b) => new Date(a.tarih) - new Date(b.tarih));
+    const hedef = gelecek[0] ||
+      uygun.slice().sort((a, b) => new Date(b.tarih) - new Date(a.tarih))[0];
+    if (hedef) macYukle(hedef, false); // kaydırma yok — açılışta zaten en üstteyiz
+    otoSecildi.current = true;
+  }, [canli.maclar]);
 
   // Yüklü maçın detayı (otoriteler tahmini + H2H) — id'ye göre canlı cache'ten.
   const macDetay = seciliMac && canli.detaylar ? canli.detaylar[seciliMac.id] : null;
