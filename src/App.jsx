@@ -366,6 +366,9 @@ export default function App() {
     setTur((t) => ({ ...t, no: turNo }));
     // 3. maç ise "ölüm-kalım" baskısını otomatik öner (kullanıcı kapatabilir).
     setBask((b) => ({ ...b, on: turNo === 3 }));
+    // Grup simülasyonu + puan durumunu yüklenen maçın grubuna senkronla.
+    const grup = Object.keys(GROUPS).find((g) => GROUPS[g].includes(mac.evSahibi));
+    if (grup && grup !== grp) { setGrp(grup); setSimRes(null); }
     setSeciliMac(mac); // stadyum/hava/H2H/otoriteler panelleri için
     if (kaydir) window.scrollTo({ top: 0, behavior: "smooth" }); // hesaplayıcıya dön
   };
