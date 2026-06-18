@@ -727,9 +727,11 @@ export default function App() {
                     {maclar.length > 0 && (
                       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                         {maclar.map((mac) => {
-                          const oynandi = ["FT", "AET", "PEN"].includes(mac.durum);
                           // Canlı skor route'undan bu maçın anlık verisi (varsa) durumu ezer.
                           const cs = canliSkor[mac.id];
+                          // Maç bitti mi? Önce canlı route'un durumu (taze), yoksa statik fikstür.
+                          const csBitti = cs && ["FT", "AET", "PEN"].includes(cs.durum);
+                          const oynandi = csBitti || ["FT", "AET", "PEN"].includes(mac.durum);
                           const canliMi = (cs && ["1H", "2H", "HT", "ET", "LIVE", "P", "BT"].includes(cs.durum))
                             || ["1H", "2H", "HT", "ET", "LIVE", "P"].includes(mac.durum);
                           return (
@@ -747,7 +749,10 @@ export default function App() {
                               <span style={{ display: "flex", gap: 10, alignItems: "center" }}>
                                 {mac.oran && <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: C.gold }}>oran ✓</span>}
                                 {oynandi
-                                  ? <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 700, color: C.gold }}>{mac.evGol}-{mac.depGol}</span>
+                                  ? <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 700, color: C.gold }}>
+                                      {csBitti ? (cs.evGol ?? 0) : mac.evGol}-{csBitti ? (cs.depGol ?? 0) : mac.depGol}
+                                      <span style={{ fontWeight: 400, color: C.dim }}> MS</span>
+                                    </span>
                                   : (cs && canliMi)
                                     ? <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 700, color: C.green }}>
                                         {cs.evGol ?? 0}-{cs.depGol ?? 0}
