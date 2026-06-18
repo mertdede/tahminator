@@ -468,7 +468,17 @@ export default function App() {
     const grup = Object.keys(GROUPS).find((g) => GROUPS[g].includes(mac.evSahibi));
     if (grup && grup !== grp) { setGrp(grup); setSimRes(null); }
     setSeciliMac(mac); // stadyum/hava/H2H/otoriteler panelleri için
-    if (kaydir) window.scrollTo({ top: 0, behavior: "smooth" }); // hesaplayıcıya dön
+    // Seçili Maç paneline kaydır (canlı skor/istatistik/kadronun olduğu yer).
+    // Panel önce render olmalı; iki kare bekleyip ref'e scrollIntoView yaparız.
+    if (kaydir) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (seciliMacRef.current) {
+          seciliMacRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }));
+    }
   };
 
   // Açılış varsayılanı: sabit Türkiye–ABD yerine, fikstür yüklenince o anki
@@ -476,6 +486,8 @@ export default function App() {
   // Hepsi oynanmışsa en son maça düşülür. Yalnızca bir kez (ilk yükleme) çalışır;
   // kullanıcı sonradan başka maç seçtiyse ezmez. Sayfayı yukarı kaydırmaz.
   const otoSecildi = useRef(false);
+  // Seçili Maç paneline kaydırmak için referans (maça tıklanınca oraya gider).
+  const seciliMacRef = useRef(null);
   useEffect(() => {
     if (otoSecildi.current || !canli.maclar) return;
     const uygun = canli.maclar.filter(
@@ -542,27 +554,55 @@ export default function App() {
     }
     // En altta kaleci (kendi kalesi), en üstte forvet olacak şekilde ters çiz.
     const sirali = [...hatlar].reverse();
+    const cizgi = "rgba(255,255,255,0.18)"; // saha çizgileri (beyaz, yarı saydam)
     return (
       <div style={{
-        background: "linear-gradient(180deg, #14301d 0%, #0F2417 100%)",
-        border: `1px solid ${C.line}`, borderRadius: 10, padding: "14px 8px",
+        // Daha açık, çizgili çim: yatay bantlarla "biçilmiş saha" hissi.
+        background:
+          "repeating-linear-gradient(180deg, #2E6B3F 0px, #2E6B3F 28px, #2A6239 28px, #2A6239 56px)",
+        border: `1px solid ${C.line}`, borderRadius: 10, padding: "26px 8px 14px",
         display: "flex", flexDirection: "column", justifyContent: "space-between",
-        gap: 10, minHeight: 300, position: "relative",
+        gap: 10, minHeight: 320, position: "relative", overflow: "hidden",
       }}>
-        {/* orta saha çizgisi */}
-        <div style={{ position: "absolute", left: 8, right: 8, top: "50%", height: 1, background: "rgba(255,255,255,0.12)" }} />
+        {/* Üst kale direği (rakip kale) */}
+        <div style={{
+          position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
+          width: 54, height: 12, borderLeft: `2px solid ${cizgi}`, borderRight: `2px solid ${cizgi}`,
+          borderBottom: `2px solid ${cizgi}`, borderRadius: "0 0 2px 2px",
+        }} />
+        {/* Üst ceza sahası */}
+        <div style={{
+          position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
+          width: "46%", height: 34, border: `1px solid ${cizgi}`, borderTop: "none", borderRadius: "0 0 4px 4px",
+        }} />
+        {/* Orta saha çizgisi + orta yuvarlak + orta nokta */}
+        <div style={{ position: "absolute", left: 0, right: 0, top: "50%", height: 1, background: cizgi }} />
+        <div style={{
+          position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)",
+          width: 78, height: 78, borderRadius: "50%", border: `1px solid ${cizgi}`,
+        }} />
+        <div style={{
+          position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)",
+          width: 5, height: 5, borderRadius: "50%", background: cizgi,
+        }} />
+        {/* Alt ceza sahası (kendi kalemiz) */}
+        <div style={{
+          position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)",
+          width: "46%", height: 34, border: `1px solid ${cizgi}`, borderBottom: "none", borderRadius: "4px 4px 0 0",
+        }} />
         {sirali.map((hat, hi) => (
-          <div key={hi} style={{ display: "flex", justifyContent: "space-around", alignItems: "center", gap: 4 }}>
+          <div key={hi} style={{ display: "flex", justifyContent: "space-around", alignItems: "center", gap: 4, position: "relative", zIndex: 1 }}>
             {hat.map((p, pi) => (
               <div key={pi} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3, flex: 1, minWidth: 0 }}>
                 <div style={{
                   width: 30, height: 30, borderRadius: "50%", background: renk,
-                  color: "#08120B", fontWeight: 800, fontSize: 12,
+                  color: "#08120B", fontWeight: 800, fontSize: 12, border: "1.5px solid rgba(255,255,255,0.55)",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontFamily: "'IBM Plex Mono', monospace", boxShadow: "0 1px 4px rgba(0,0,0,0.4)",
+                  fontFamily: "'IBM Plex Mono', monospace", boxShadow: "0 2px 5px rgba(0,0,0,0.45)",
                 }}>{p.numara ?? "?"}</div>
                 <div style={{
-                  fontSize: 10, color: C.text, fontFamily: "'IBM Plex Mono', monospace",
+                  fontSize: 10, color: "#fff", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600,
+                  textShadow: "0 1px 2px rgba(0,0,0,0.7)",
                   whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 64, textAlign: "center",
                 }}>{soyad(p.ad)}</div>
               </div>
@@ -775,7 +815,7 @@ export default function App() {
 
         {/* Seçili maç bilgisi: stadyum + tahmini hava + dizilişler (canlı veri) */}
         {seciliMac && (
-          <div style={{ background: C.panel, border: `1px solid ${C.line}`, borderRadius: 10, padding: 16, marginBottom: 20 }}>
+          <div ref={seciliMacRef} style={{ background: C.panel, border: `1px solid ${C.line}`, borderRadius: 10, padding: 16, marginBottom: 20, scrollMarginTop: 14 }}>
             <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, letterSpacing: 2, color: C.gold, marginBottom: 10 }}>
               SEÇİLİ MAÇ · {seciliMac.evSahibi} — {seciliMac.deplasman}
             </div>
