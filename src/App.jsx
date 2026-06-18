@@ -34,8 +34,23 @@ const GROUPS = {
 };
 const HOSTS = ["Meksika", "Kanada", "ABD"]; // grup maçlarını kendi ülkesinde oynayan ev sahipleri
 
-// Sıcaklık toleransı yüksek takımlar: Güney Amerika + Kuzey/Orta Afrika
-const HEAT_TEAMS = ["Arjantin", "Brezilya", "Kolombiya", "Ekvador", "Uruguay", "Paraguay", "Fas", "Cezayir", "Tunus", "Mısır", "DR Kongo"];
+// Sıcaklık toleransı yüksek takımlar: sıcak iklim coğrafyaları.
+// Güney Amerika · Kuzey Afrika · Orta/Güney Afrika · Arap yarımadası-Körfez ·
+// Karayip adaları · İran · Meksika · Özbekistan.
+const HEAT_TEAMS = [
+  // Güney Amerika
+  "Arjantin", "Brezilya", "Kolombiya", "Ekvador", "Uruguay", "Paraguay",
+  // Kuzey Afrika
+  "Fas", "Cezayir", "Tunus", "Mısır",
+  // Orta / Güney Afrika
+  "DR Kongo", "G. Afrika", "Gana", "Fildişi Sahili", "Senegal", "Yeşil Burun",
+  // Arap yarımadası · Körfez
+  "S. Arabistan", "Katar", "Ürdün", "Irak",
+  // Karayip adaları
+  "Haiti", "Curaçao", "Panama",
+  // Diğer sıcak iklim
+  "İran", "Meksika", "Özbekistan",
+];
 
 // ----- Doğrulanmış son 5 maç formu, 48/48 takım (eskiden yeniye) — eloratings.net maç geçmişleri, 10 Haziran 2026 -----
 const FORM_DATA = {
