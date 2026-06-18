@@ -289,6 +289,32 @@ export default function App() {
     return harita;
   }, [canli.maclar]);
 
+  // Yakın fikstür: kullanıcının BUGÜNÜNDEN (tarayıcı yerel saati) başlayarak
+  // bugün + sonraki 2 günün maçları. Maçlar yerel güne göre gruplanır; her gün
+  // kendi içinde saate göre sıralı. Sayfa her açıldığında "bugün" yeniden hesaplanır.
+  const yakinFikstur = useMemo(() => {
+    if (!canli.maclar) return null;
+    const yerelGun = (iso) => {
+      const d = new Date(iso);
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    };
+    const bugun = new Date(); bugun.setHours(0, 0, 0, 0);
+    const hedefGunler = [0, 1, 2].map((k) => {
+      const d = new Date(bugun); d.setDate(d.getDate() + k);
+      return yerelGun(d);
+    });
+    const harita = {};
+    for (const g of hedefGunler) harita[g] = [];
+    for (const mac of canli.maclar) {
+      if (teamIndex(mac.evSahibi) === -1 || teamIndex(mac.deplasman) === -1) continue;
+      const g = yerelGun(mac.tarih);
+      if (harita[g]) harita[g].push(mac);
+    }
+    for (const g of hedefGunler) harita[g].sort((a, b) => new Date(a.tarih) - new Date(b.tarih));
+    const toplam = hedefGunler.reduce((s, g) => s + harita[g].length, 0);
+    return { gunler: hedefGunler, harita, toplam };
+  }, [canli.maclar]);
+
   // Bir maça tıklanınca: iki takımı seç, ev sahibi avantajını ayarla, oranı bas,
   // korner/kart kutularını canlı istatistikten otomatik doldur.
   const macYukle = (mac) => {
@@ -433,6 +459,63 @@ export default function App() {
               : <span style={{ color: C.gold }}>● Elo gömülü yedek — canlı veri için: npm run veri-guncelle</span>}
           </div>
         </div>
+
+        {/* Yakın fikstür: bugün + sonraki 2 gün (kullanıcının yerel tarihine göre) */}
+        {yakinFikstur && yakinFikstur.toplam > 0 && (
+          <div style={{ background: C.panel, border: `1px solid ${C.gold}`, borderRadius: 10, padding: 16, marginBottom: 20 }}>
+            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, letterSpacing: 2, color: C.gold, marginBottom: 4 }}>YAKIN FİKSTÜR · BUGÜN + 2 GÜN</div>
+            <div style={{ fontSize: 13, color: C.dim, marginBottom: 12 }}>
+              Önümüzdeki üç günün maçları. Bir maça tıkla, tahmin otomatik yüklensin.
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              {yakinFikstur.gunler.map((g) => {
+                const maclar = yakinFikstur.harita[g];
+                const bugunMu = g === yakinFikstur.gunler[0];
+                return (
+                  <div key={g}>
+                    <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: bugunMu ? C.green : C.dim, marginBottom: 6, letterSpacing: 1 }}>
+                      {bugunMu ? "● BUGÜN · " : ""}
+                      {new Date(g + "T12:00:00").toLocaleDateString("tr-TR", { weekday: "long", day: "numeric", month: "long" })}
+                      {maclar.length === 0 ? " — maç yok" : ` (${maclar.length} maç)`}
+                    </div>
+                    {maclar.length > 0 && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                        {maclar.map((mac) => {
+                          const oynandi = ["FT", "AET", "PEN"].includes(mac.durum);
+                          const canliMi = ["1H", "2H", "HT", "ET", "LIVE", "P"].includes(mac.durum);
+                          return (
+                            <button key={mac.id} onClick={() => macYukle(mac)} style={{
+                              display: "flex", justifyContent: "space-between", alignItems: "center",
+                              background: C.panel2, border: `1px solid ${canliMi ? C.green : C.line}`, borderRadius: 8,
+                              padding: "10px 14px", cursor: "pointer", textAlign: "left", color: C.text,
+                              fontFamily: "'Archivo', sans-serif", fontSize: 15,
+                            }}>
+                              <span style={{ fontWeight: 700 }}>
+                                <span style={{ color: C.green }}>{mac.evSahibi}</span>
+                                <span style={{ color: C.dim, fontWeight: 400 }}> — </span>
+                                <span style={{ color: C.blue }}>{mac.deplasman}</span>
+                              </span>
+                              <span style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                                {mac.oran && <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: C.gold }}>oran ✓</span>}
+                                {oynandi
+                                  ? <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 700, color: C.gold }}>{mac.evGol}-{mac.depGol}</span>
+                                  : canliMi
+                                    ? <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: C.green }}>● CANLI</span>
+                                    : <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: C.dim }}>
+                                        {new Date(mac.tarih).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })}
+                                      </span>}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Maç günü (Faz 3): fikstürden maç seç → tek tıkla hesaplayıcıya yükle */}
         {gunler && Object.keys(gunler).length > 0 && (
