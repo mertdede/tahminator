@@ -707,25 +707,41 @@ export default function App() {
                       {cs.durum === "HT" ? "Devre arası" : (cs.dakika != null ? cs.dakika + "'" : "")}
                     </span>
                   </div>
-                  {ist && (ist.ev || ist.dep) && (
-                    <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 12 }}>
-                      {ist.ev?.xg != null && (
-                        <div><span style={{ color: C.dim }}>canlı xG: </span>
-                          <span style={{ color: C.green }}>{ist.ev.xg.toFixed(2)}</span>
-                          <span style={{ color: C.dim }}> — </span>
-                          <span style={{ color: C.blue }}>{ist.dep?.xg != null ? ist.dep.xg.toFixed(2) : "—"}</span>
+                  {ist && (ist.ev || ist.dep) && (() => {
+                    // Bir istatistiği "ev - dep" biçiminde gösterir. İki taraf da boşsa atlar.
+                    // birim: "%" gibi son ek; ondalik: kaç basamak (xG için 2).
+                    const satir = (etiket, alan, birim = "", ondalik = 0) => {
+                      const e = ist.ev?.[alan], d = ist.dep?.[alan];
+                      if (e == null && d == null) return null;
+                      const yaz = (v) => (v == null ? "—" : (ondalik ? v.toFixed(ondalik) : v) + birim);
+                      return (
+                        <div key={alan}>
+                          <span style={{ color: C.dim }}>{etiket}: </span>
+                          <span style={{ color: C.green }}>{yaz(e)}</span>
+                          <span style={{ color: C.dim }}> - </span>
+                          <span style={{ color: C.blue }}>{yaz(d)}</span>
                         </div>
-                      )}
-                      {ist.ev?.korner != null && (
-                        <div><span style={{ color: C.dim }}>korner: </span>{ist.ev.korner}-{ist.dep?.korner ?? "—"}</div>
-                      )}
-                      {ist.ev?.kart != null && (
-                        <div><span style={{ color: C.dim }}>sarı: </span>{ist.ev.kart}-{ist.dep?.kart ?? "—"}</div>
-                      )}
-                    </div>
-                  )}
+                      );
+                    };
+                    return (
+                      <div style={{ display: "flex", gap: 18, flexWrap: "wrap", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 12 }}>
+                        {satir("canlı xG", "xg", "", 2)}
+                        {satir("possession", "possession", "%")}
+                        {satir("şut", "sut")}
+                        {satir("isabetli şut", "isabetliSut")}
+                        {satir("kaleci önleyişi", "kurtaris")}
+                        {satir("pas", "pas")}
+                        {satir("pas isabet", "pasYuzde", "%")}
+                        {satir("korner", "korner")}
+                        {satir("faul", "faul")}
+                        {satir("ofsayt", "ofsayt")}
+                        {satir("blok şut", "blokSut")}
+                        {satir("sarı", "kart")}
+                      </div>
+                    );
+                  })()}
                   <div style={{ fontSize: 11, color: C.dim, marginTop: 6 }}>
-                    Canlı skor/istatistik dakikada bir tazelenir. Canlı xG (varsa) aşağıdaki modele yansır.
+                    Canlı skor/istatistik dakikada bir tazelenir ({seciliMac.evSahibi} <span style={{ color: C.green }}>yeşil</span> — {seciliMac.deplasman} <span style={{ color: C.blue }}>mavi</span>). Canlı xG (varsa) aşağıdaki modele yansır; diğer istatistikler yalnızca bilgi amaçlıdır.
                   </div>
                 </div>
               );

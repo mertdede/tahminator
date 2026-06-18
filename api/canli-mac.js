@@ -24,13 +24,23 @@ export default async function handler(req, res) {
     return null;
   };
 
-  // Bir takımın istatistik bloğundan xG/korner/kart ayıkla.
+  // Bir takımın istatistik bloğundan tüm ilgili alanları ayıkla.
+  // Possession ve Passes % "39%" gibi metin gelir; sayi() yüzde işaretini atıp 39 verir.
   const ayikla = (ist) => {
     const bul = (re) => ist.find((s) => re.test(s.type))?.value;
     return {
       xg: sayi(bul(/expected[_ ]?goals|xg/i)),
       korner: sayi(bul(/corner/i)),
       kart: sayi(bul(/yellow/i)),
+      possession: sayi(bul(/ball possession|possession/i)),  // % top hâkimiyeti
+      sut: sayi(bul(/total shots/i)),                          // toplam şut
+      isabetliSut: sayi(bul(/shots on goal/i)),                // isabetli şut
+      kurtaris: sayi(bul(/goalkeeper saves|saves/i)),          // kaleci önleyişi
+      pas: sayi(bul(/total passes/i)),                         // toplam pas
+      pasYuzde: sayi(bul(/passes\s*%|passes accurate %/i)),    // pas isabet %
+      faul: sayi(bul(/fouls/i)),                               // faul
+      ofsayt: sayi(bul(/offsides/i)),                          // ofsayt
+      blokSut: sayi(bul(/blocked shots/i)),                    // bloklanan şut
     };
   };
 
