@@ -194,6 +194,8 @@ export default function App() {
   const [canliSkor, setCanliSkor] = useState({});
   // canliMacIst: seçili maç canlıysa { ev:{xg,korner,kart}, dep:{...} } — /api/canli-mac'ten.
   const [canliMacIst, setCanliMacIst] = useState(null);
+  // canliKadro: seçili maç canlıysa { ev:{formation,ilk11,yedek}, dep:{...}, degisiklikler:[] } — /api/canli-kadro'dan.
+  const [canliKadro, setCanliKadro] = useState(null);
 
   // Açılışta canlı veriyi bir kez yükle.
   useEffect(() => { canliVeriYukle().then(setCanli); }, []);
@@ -251,6 +253,30 @@ export default function App() {
         const y = await fetch(`/api/canli-mac?id=${id}`);
         const j = await y.json();
         if (!durduruldu) setCanliMacIst(j);
+      } catch { /* sessiz geç */ }
+    };
+    cek();
+    const z = setInterval(cek, 60 * 1000);
+    return () => { durduruldu = true; clearInterval(z); };
+  }, [seciliMac?.id, canliSkor]);
+
+  // ----- SEÇİLİ MAÇ KADROSU (ilk 11 + yedek + oyuncu değişiklikleri) -----
+  // Seçili maç canlıysa /api/canli-kadro?id=... dakikada 1 çağrılır. İlk 11 sabittir
+  // ama değişiklikler maç boyunca güncellendiği için tek route'la ikisi birden tazelenir.
+  useEffect(() => {
+    const id = seciliMac?.id;
+    if (!id) { setCanliKadro(null); return; }
+    const cs = canliSkor[id];
+    const canliMi = cs && ["1H", "2H", "HT", "ET", "LIVE", "P", "BT"].includes(cs.durum);
+    if (!canliMi) { setCanliKadro(null); return; }
+
+    let durduruldu = false;
+    const cek = async () => {
+      if (document.hidden) return;
+      try {
+        const y = await fetch(`/api/canli-kadro?id=${id}`);
+        const j = await y.json();
+        if (!durduruldu) setCanliKadro(j);
       } catch { /* sessiz geç */ }
     };
     cek();
@@ -482,6 +508,69 @@ export default function App() {
     background: C.panel2, color: C.text, border: `1px solid ${C.line}`,
     borderRadius: 6, padding: "8px 10px", width: "100%",
     fontFamily: "'IBM Plex Mono', monospace", fontSize: 14, outline: "none",
+  };
+
+  // Bir oyuncu adının soyadını (gösterim için) kısaltır: "Patrik Schick" → "Schick".
+  const soyad = (ad) => {
+    if (!ad) return "";
+    const parcalar = ad.replace(/^[A-Z]\.\s*/, "").trim().split(/\s+/); // "J. Adams" → "Adams"
+    return parcalar[parcalar.length - 1];
+  };
+
+  // Taktiksel saha çizimi: ilk11'i grid'e ("satır:sütun") göre hatlara dizer.
+  // Kaleci (satır 1) altta, forvetler üstte (rakip kaleye doğru). renk = takım vurgusu.
+  const SahaDizilis = ({ takim, renk }) => {
+    if (!takim || !takim.ilk11 || takim.ilk11.length === 0) return null;
+    // grid'i olan oyuncuları satıra göre grupla; grid yoksa mevki sırasına düş.
+    const gridli = takim.ilk11.filter((p) => p.grid);
+    let hatlar;
+    if (gridli.length >= 7) {
+      // Satır numarasına göre grupla (1=kaleci ... büyük=forvet).
+      const harita = {};
+      for (const p of gridli) {
+        const [satir, sutun] = p.grid.split(":").map(Number);
+        (harita[satir] ||= []).push({ ...p, sutun });
+      }
+      hatlar = Object.keys(harita)
+        .map(Number).sort((a, b) => a - b)
+        .map((s) => harita[s].sort((a, b) => a.sutun - b.sutun));
+    } else {
+      // grid gelmediyse mevkiye göre kaba hatlar (G/D/M/F).
+      const m = { G: [], D: [], M: [], F: [] };
+      for (const p of takim.ilk11) (m[p.mevki] || m.M).push(p);
+      hatlar = [m.G, m.D, m.M, m.F].filter((h) => h.length > 0);
+    }
+    // En altta kaleci (kendi kalesi), en üstte forvet olacak şekilde ters çiz.
+    const sirali = [...hatlar].reverse();
+    return (
+      <div style={{
+        background: "linear-gradient(180deg, #14301d 0%, #0F2417 100%)",
+        border: `1px solid ${C.line}`, borderRadius: 10, padding: "14px 8px",
+        display: "flex", flexDirection: "column", justifyContent: "space-between",
+        gap: 10, minHeight: 300, position: "relative",
+      }}>
+        {/* orta saha çizgisi */}
+        <div style={{ position: "absolute", left: 8, right: 8, top: "50%", height: 1, background: "rgba(255,255,255,0.12)" }} />
+        {sirali.map((hat, hi) => (
+          <div key={hi} style={{ display: "flex", justifyContent: "space-around", alignItems: "center", gap: 4 }}>
+            {hat.map((p, pi) => (
+              <div key={pi} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3, flex: 1, minWidth: 0 }}>
+                <div style={{
+                  width: 30, height: 30, borderRadius: "50%", background: renk,
+                  color: "#08120B", fontWeight: 800, fontSize: 12,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontFamily: "'IBM Plex Mono', monospace", boxShadow: "0 1px 4px rgba(0,0,0,0.4)",
+                }}>{p.numara ?? "?"}</div>
+                <div style={{
+                  fontSize: 10, color: C.text, fontFamily: "'IBM Plex Mono', monospace",
+                  whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 64, textAlign: "center",
+                }}>{soyad(p.ad)}</div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    );
   };
 
   const TeamCard = ({ label, color, idx, setIdx, elo, eloKey, form, setForm, host, setHost, seq, setSeq }) => (
@@ -742,6 +831,69 @@ export default function App() {
                   })()}
                   <div style={{ fontSize: 11, color: C.dim, marginTop: 6 }}>
                     Canlı skor/istatistik dakikada bir tazelenir ({seciliMac.evSahibi} <span style={{ color: C.green }}>yeşil</span> — {seciliMac.deplasman} <span style={{ color: C.blue }}>mavi</span>). Canlı xG (varsa) aşağıdaki modele yansır; diğer istatistikler yalnızca bilgi amaçlıdır.
+                  </div>
+                </div>
+              );
+            })()}
+            {(() => {
+              // Seçili maç canlıysa: taktiksel diziliş (iki saha) + yedekler + değişiklikler.
+              const cs = canliSkor[seciliMac.id];
+              const canliMi = cs && ["1H", "2H", "HT", "ET", "LIVE", "P", "BT"].includes(cs.durum);
+              if (!canliMi || !canliKadro || (!canliKadro.ev && !canliKadro.dep)) return null;
+              const { ev, dep, degisiklikler } = canliKadro;
+              return (
+                <div style={{ marginBottom: 12 }}>
+                  <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, letterSpacing: 2, color: C.gold, marginBottom: 8 }}>
+                    CANLI KADRO · İLK 11
+                  </div>
+                  {/* İki taktiksel saha yan yana */}
+                  <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                    {[{ tk: ev, renk: C.green, ad: seciliMac.evSahibi }, { tk: dep, renk: C.blue, ad: seciliMac.deplasman }].map((x, i) => (
+                      <div key={i} style={{ flex: 1, minWidth: 260 }}>
+                        <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: x.renk, marginBottom: 6, fontWeight: 700 }}>
+                          {x.ad} {x.tk?.formation && <span style={{ color: C.dim, fontWeight: 400 }}>· {x.tk.formation}</span>}
+                        </div>
+                        <SahaDizilis takim={x.tk} renk={x.renk} />
+                      </div>
+                    ))}
+                  </div>
+                  {/* Yedekler */}
+                  <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 10 }}>
+                    {[{ tk: ev, renk: C.green, ad: seciliMac.evSahibi }, { tk: dep, renk: C.blue, ad: seciliMac.deplasman }].map((x, i) => (
+                      <div key={i} style={{ flex: 1, minWidth: 260, background: C.panel2, border: `1px solid ${C.line}`, borderRadius: 8, padding: "8px 12px" }}>
+                        <div style={{ fontSize: 11, color: x.renk, fontFamily: "'IBM Plex Mono', monospace", marginBottom: 4 }}>YEDEKLER</div>
+                        <div style={{ fontSize: 12, color: C.text, fontFamily: "'IBM Plex Mono', monospace", lineHeight: 1.6 }}>
+                          {(x.tk?.yedek || []).length === 0
+                            ? <span style={{ color: C.dim }}>—</span>
+                            : (x.tk.yedek).map((p, pi) => (
+                                <span key={pi}>{p.numara ?? "?"} {soyad(p.ad)}{pi < x.tk.yedek.length - 1 ? " · " : ""}</span>
+                              ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Oyuncu değişiklikleri */}
+                  {degisiklikler && degisiklikler.length > 0 && (
+                    <div style={{ marginTop: 10, background: C.panel2, border: `1px solid ${C.line}`, borderRadius: 8, padding: "8px 12px" }}>
+                      <div style={{ fontSize: 11, color: C.gold, fontFamily: "'IBM Plex Mono', monospace", marginBottom: 4 }}>OYUNCU DEĞİŞİKLİKLERİ</div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 3, fontSize: 12, fontFamily: "'IBM Plex Mono', monospace" }}>
+                        {degisiklikler.map((d, di) => {
+                          const renk = d.takim === ev?.ad ? C.green : C.blue;
+                          return (
+                            <div key={di}>
+                              <span style={{ color: C.gold }}>{d.dakika}'{d.ekDakika ? "+" + d.ekDakika : ""} </span>
+                              <span style={{ color: renk }}>{d.takim}: </span>
+                              <span style={{ color: C.green }}>↑ {soyad(d.giren) || "?"}</span>
+                              <span style={{ color: C.dim }}> · </span>
+                              <span style={{ color: C.dim }}>↓ {soyad(d.cikan) || "?"}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                  <div style={{ fontSize: 11, color: C.dim, marginTop: 6 }}>
+                    İlk 11 dizilişe göre yerleştirildi (kaleci altta, forvetler üstte). Değişiklikler dakikada bir tazelenir. Yalnızca bilgi amaçlıdır.
                   </div>
                 </div>
               );
