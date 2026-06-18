@@ -189,8 +189,74 @@ export default function App() {
   const [seciliGun, setSeciliGun] = useState(""); // maç günü filtresi (boş = tüm maçlar)
   const [seciliMac, setSeciliMac] = useState(null); // fikstürden yüklenen maç (stadyum/hava/H2H/otoriteler için)
 
+  // CANLI SKOR katmanı: /api/canli route'undan dakikada 1 çekilir (sadece maç saatlerinde).
+  // canliSkor: { macId: { durum, dakika, evGol, depGol } } — o an oynanan maçlar.
+  const [canliSkor, setCanliSkor] = useState({});
+  // canliMacIst: seçili maç canlıysa { ev:{xg,korner,kart}, dep:{...} } — /api/canli-mac'ten.
+  const [canliMacIst, setCanliMacIst] = useState(null);
+
   // Açılışta canlı veriyi bir kez yükle.
   useEffect(() => { canliVeriYukle().then(setCanli); }, []);
+
+  // ----- CANLI SKOR POLLING -----
+  // Tarayıcı, fikstürde o an oynanan (ya da yakında başlayacak) maç varken dakikada 1
+  // kendi /api/canli route'umuzu çağırır. API anahtarı sunucuda kalır, istemciye gelmez.
+  // Sekme arka plandaysa (document.hidden) istek atlanır → gereksiz çağrı olmaz.
+  useEffect(() => {
+    const maclar = canli.maclar;
+    if (!maclar || maclar.length === 0) return;
+
+    // Şu an "maç penceresi" içinde miyiz? Herhangi bir maç, başlama saatinden
+    // 15 dk önce ile 150 dk sonrası arasındaysa polling açılır (devre arası dahil).
+    const pencereDeMi = () => {
+      const simdi = Date.now();
+      return maclar.some((m) => {
+        const t = new Date(m.tarih).getTime();
+        return simdi >= t - 15 * 60 * 1000 && simdi <= t + 150 * 60 * 1000;
+      });
+    };
+
+    let durduruldu = false;
+    const cek = async () => {
+      if (document.hidden) return;           // sekme görünmüyorsa atla
+      if (!pencereDeMi()) return;             // maç saati değilse atla
+      try {
+        const y = await fetch("/api/canli");
+        const j = await y.json();
+        if (durduruldu) return;
+        const harita = {};
+        for (const m of j.maclar || []) harita[m.id] = m;
+        setCanliSkor(harita);
+      } catch { /* route yoksa/hatalıysa sessiz geç — site statik çalışır */ }
+    };
+
+    cek();                                    // ilk çağrı hemen
+    const z = setInterval(cek, 60 * 1000);    // sonra dakikada 1
+    return () => { durduruldu = true; clearInterval(z); };
+  }, [canli.maclar]);
+
+  // ----- SEÇİLİ MAÇ CANLI İSTATİSTİĞİ -----
+  // Seçili maç o an canlıysa, dakikada 1 /api/canli-mac?id=... çağrılır (canlı xG/korner/kart).
+  useEffect(() => {
+    const id = seciliMac?.id;
+    if (!id) { setCanliMacIst(null); return; }
+    const cs = canliSkor[id];
+    const canliMi = cs && ["1H", "2H", "HT", "ET", "LIVE", "P", "BT"].includes(cs.durum);
+    if (!canliMi) { setCanliMacIst(null); return; }
+
+    let durduruldu = false;
+    const cek = async () => {
+      if (document.hidden) return;
+      try {
+        const y = await fetch(`/api/canli-mac?id=${id}`);
+        const j = await y.json();
+        if (!durduruldu) setCanliMacIst(j);
+      } catch { /* sessiz geç */ }
+    };
+    cek();
+    const z = setInterval(cek, 60 * 1000);
+    return () => { durduruldu = true; clearInterval(z); };
+  }, [seciliMac?.id, canliSkor]);
 
   // Sarı kart modeli: her takımın ALDIĞI kart ortalamaları toplanır, hakem/bölge çarpanı uygulanır
   const cardModel = useMemo(() => {
@@ -269,9 +335,15 @@ export default function App() {
     return mlt;
   };
 
-  // xG harmanı için takımların gerçek xG ortalaması (canlı veriden).
-  const xgA = canli.takimlar?.[nameA]?.xg ?? null;
-  const xgB = canli.takimlar?.[nameB]?.xg ?? null;
+  // xG harmanı için takımların gerçek xG ortalaması.
+  // Öncelik: seçili maç CANLIYSA o maçın canlı xG'si > statik (son 5 maç ort.) xG.
+  // Canlı xG, modeli o anki sahadaki performansa göre günceller.
+  // (Seçili maçın iki takımı, ekranda yüklü A/B ile aynıysa canlı xG'yi kullan.)
+  const seciliCanli =
+    seciliMac && seciliMac.evSahibi === nameA && seciliMac.deplasman === nameB
+      ? canliMacIst : null;
+  const xgA = seciliCanli?.ev?.xg ?? canli.takimlar?.[nameA]?.xg ?? null;
+  const xgB = seciliCanli?.dep?.xg ?? canli.takimlar?.[nameB]?.xg ?? null;
   const xgOpts = { xgA, xgB, xgW: xg.on ? xg.val / 100 : 0 };
 
   const m = useMemo(
@@ -496,6 +568,9 @@ export default function App() {
             {canli.elo
               ? <span style={{ color: C.green }}>● Elo canlı — eloratings.net ({new Date(canli.eloTarih).toLocaleDateString("tr-TR")} güncellendi)</span>
               : <span style={{ color: C.gold }}>● Elo gömülü yedek — canlı veri için: npm run veri-guncelle</span>}
+            {Object.keys(canliSkor).length > 0 && (
+              <span style={{ color: C.green, marginLeft: 12 }}>● canlı skor açık — {Object.keys(canliSkor).length} maç oynanıyor</span>
+            )}
           </div>
         </div>
 
@@ -521,7 +596,10 @@ export default function App() {
                       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                         {maclar.map((mac) => {
                           const oynandi = ["FT", "AET", "PEN"].includes(mac.durum);
-                          const canliMi = ["1H", "2H", "HT", "ET", "LIVE", "P"].includes(mac.durum);
+                          // Canlı skor route'undan bu maçın anlık verisi (varsa) durumu ezer.
+                          const cs = canliSkor[mac.id];
+                          const canliMi = (cs && ["1H", "2H", "HT", "ET", "LIVE", "P", "BT"].includes(cs.durum))
+                            || ["1H", "2H", "HT", "ET", "LIVE", "P"].includes(mac.durum);
                           return (
                             <button key={mac.id} onClick={() => macYukle(mac)} style={{
                               display: "flex", justifyContent: "space-between", alignItems: "center",
@@ -538,11 +616,16 @@ export default function App() {
                                 {mac.oran && <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: C.gold }}>oran ✓</span>}
                                 {oynandi
                                   ? <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 700, color: C.gold }}>{mac.evGol}-{mac.depGol}</span>
-                                  : canliMi
-                                    ? <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: C.green }}>● CANLI</span>
-                                    : <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: C.dim }}>
-                                        {new Date(mac.tarih).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })}
-                                      </span>}
+                                  : (cs && canliMi)
+                                    ? <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 700, color: C.green }}>
+                                        {cs.evGol ?? 0}-{cs.depGol ?? 0}
+                                        <span style={{ fontWeight: 400, color: C.green }}> · {cs.durum === "HT" ? "DA" : (cs.dakika != null ? cs.dakika + "'" : "CANLI")}</span>
+                                      </span>
+                                    : canliMi
+                                      ? <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: C.green }}>● CANLI</span>
+                                      : <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: C.dim }}>
+                                          {new Date(mac.tarih).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })}
+                                        </span>}
                               </span>
                             </button>
                           );
@@ -604,6 +687,46 @@ export default function App() {
             <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, letterSpacing: 2, color: C.gold, marginBottom: 10 }}>
               SEÇİLİ MAÇ · {seciliMac.evSahibi} — {seciliMac.deplasman}
             </div>
+            {(() => {
+              // Seçili maç o an canlıysa: canlı skor + dakika + (varsa) canlı xG göster.
+              const cs = canliSkor[seciliMac.id];
+              const canliMi = cs && ["1H", "2H", "HT", "ET", "LIVE", "P", "BT"].includes(cs.durum);
+              if (!canliMi) return null;
+              const ist = canliMacIst;
+              return (
+                <div style={{ background: "rgba(123,211,137,0.10)", border: `1px solid ${C.green}`, borderRadius: 8, padding: "10px 14px", marginBottom: 12 }}>
+                  <div style={{ display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap" }}>
+                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: C.green, fontWeight: 700, letterSpacing: 1 }}>● CANLI</span>
+                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 22, fontWeight: 700, color: C.green }}>
+                      {cs.evGol ?? 0} - {cs.depGol ?? 0}
+                    </span>
+                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, color: C.green }}>
+                      {cs.durum === "HT" ? "Devre arası" : (cs.dakika != null ? cs.dakika + "'" : "")}
+                    </span>
+                  </div>
+                  {ist && (ist.ev || ist.dep) && (
+                    <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 12 }}>
+                      {ist.ev?.xg != null && (
+                        <div><span style={{ color: C.dim }}>canlı xG: </span>
+                          <span style={{ color: C.green }}>{ist.ev.xg.toFixed(2)}</span>
+                          <span style={{ color: C.dim }}> — </span>
+                          <span style={{ color: C.blue }}>{ist.dep?.xg != null ? ist.dep.xg.toFixed(2) : "—"}</span>
+                        </div>
+                      )}
+                      {ist.ev?.korner != null && (
+                        <div><span style={{ color: C.dim }}>korner: </span>{ist.ev.korner}-{ist.dep?.korner ?? "—"}</div>
+                      )}
+                      {ist.ev?.kart != null && (
+                        <div><span style={{ color: C.dim }}>sarı: </span>{ist.ev.kart}-{ist.dep?.kart ?? "—"}</div>
+                      )}
+                    </div>
+                  )}
+                  <div style={{ fontSize: 11, color: C.dim, marginTop: 6 }}>
+                    Canlı skor/istatistik dakikada bir tazelenir. Canlı xG (varsa) aşağıdaki modele yansır.
+                  </div>
+                </div>
+              );
+            })()}
             <div style={{ display: "flex", gap: 20, flexWrap: "wrap", fontFamily: "'IBM Plex Mono', monospace", fontSize: 13 }}>
               {seciliMac.stat && (
                 <div><span style={{ color: C.dim }}>Stadyum: </span><span>{seciliMac.stat}</span></div>
