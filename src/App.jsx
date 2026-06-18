@@ -553,6 +553,8 @@ export default function App() {
         @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
         select option { background: ${C.panel2}; }
         input[type=number]::-webkit-inner-spin-button { opacity: 1; }
+        @keyframes liveYanip { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+        .live-rozet { animation: liveYanip 1.2s ease-in-out infinite; }
       `}</style>
 
       <div style={{ maxWidth: 880, margin: "0 auto" }}>
@@ -561,7 +563,8 @@ export default function App() {
           <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, letterSpacing: 3, color: C.gold }}>DÜNYA KUPASI 2026 · ELO + POISSON MODELİ</div>
           <h1 style={{ fontWeight: 900, fontSize: "clamp(30px, 6vw, 52px)", margin: "6px 0 0", lineHeight: 1.0, letterSpacing: "0.02em" }}>
             TAHMIN<span style={{ color: C.gold }}>ATOR</span>
-            <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, fontSize: "clamp(11px, 2vw, 15px)", letterSpacing: 1, color: C.gold, border: `1px solid ${C.gold}`, borderRadius: 6, padding: "2px 7px", marginLeft: 12, verticalAlign: "middle", whiteSpace: "nowrap" }}>v1.1</span>
+            <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, fontSize: "clamp(11px, 2vw, 15px)", letterSpacing: 1, color: C.gold, border: `1px solid ${C.gold}`, borderRadius: 6, padding: "2px 7px", marginLeft: 12, verticalAlign: "middle", whiteSpace: "nowrap" }}>v1.2</span>
+            <span className="live-rozet" style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, fontSize: "clamp(10px, 1.8vw, 13px)", letterSpacing: 1, color: C.green, border: `1px solid ${C.green}`, borderRadius: 6, padding: "2px 7px", marginLeft: 8, verticalAlign: "middle", whiteSpace: "nowrap" }}>● live data</span>
           </h1>
           <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: C.dim, marginTop: 4 }}>maç ihtimal hesaplayıcı</div>
           <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: C.dim, marginTop: 8 }}>
